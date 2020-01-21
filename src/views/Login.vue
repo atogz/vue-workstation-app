@@ -26,7 +26,6 @@
           </label>
           <input
             v-model="password"
-            @click="login()"
             :class="{ 'border-red-500': error }"
             class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
@@ -59,10 +58,20 @@ export default {
     };
   },
   methods: {
-    login() {
-      console.log(this.$store);
-      alert(this.username + " " + this.password);
+    async login() {
+      try {
+        await this.$store.dispatch("LOGIN", {
+          username: this.username,
+          password: this.password
+        });
+        this.$router.push("/");
+      } catch (e) {
+        this.error = e;
+      }
     }
+  },
+  created() {
+    console.log(process.env);
   }
 };
 </script>
