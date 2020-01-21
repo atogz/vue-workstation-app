@@ -40,7 +40,7 @@ _axios.interceptors.response.use(
 );
 
 Plugin.install = function(Vue) {
-//  console.log(options); //fix для eslint
+  //  console.log(options); //fix для eslint
   Vue.axios = _axios;
   window.axios = _axios;
   Object.defineProperties(Vue.prototype, {

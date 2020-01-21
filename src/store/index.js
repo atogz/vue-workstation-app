@@ -26,6 +26,9 @@ export default new Vuex.Store({
     USER_LOGGED(state, payload) {
       state.user = payload.user;
       state.token = payload.token;
+    },
+    USER_DATA(state) {
+      console.log(state);
     }
   },
   actions: {
@@ -41,6 +44,16 @@ export default new Vuex.Store({
           } else {
             commit("USER_LOGGED", response.data);
           }
+        });
+    },
+    GET_USER_DATA({ commit, state }) {
+      const token = state.token;
+      const header = `Authorization: Bearer ${token}`;
+      return axios
+        .get("http://b8n.ru:7777/v1/auth/profile", { headers: { header } })
+        .then(response => {
+          console.log(response);
+          commit("USER_DATA");
         });
     }
   },
