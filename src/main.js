@@ -10,13 +10,15 @@ import interceptorsSetup from "./plugins/interceptors";
 import guardsSetup from "./plugins/guards";
 
 interceptorsSetup();
-guardsSetup();
+store.dispatch("APP_LOADED").then(() => {
+  guardsSetup();
 
-Vue.config.productionTip = false;
+  Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  axios,
-  render: h => h(App)
-}).$mount("#app");
+  new Vue({
+    router,
+    store,
+    axios,
+    render: h => h(App)
+  }).$mount("#app");
+});

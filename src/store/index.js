@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    appLoaded: false,
     user: {},
     token: undefined
   },
@@ -18,11 +19,16 @@ export default new Vuex.Store({
       return state.user;
     },
     isAuthorized: (state, getters) => {
-      console.log(state);
+      console.log(state.token);
       return getters.getToken ? true : false;
     }
   },
   mutations: {
+    LOADING_FINISHED(state) {
+      state.appLoaded = true;
+      console.log('loading done', state.appLoaded);
+    },
+
     USER_LOGGED(state, payload) {
       state.user = payload.user;
       state.token = payload.token;
@@ -32,6 +38,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    APP_LOADED({ commit })   {
+      commit("LOADING_FINISHED");
+    },
+
     LOGIN({ commit }, { username, password }) {
       return axios
         .post("/auth/login", {

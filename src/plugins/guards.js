@@ -4,11 +4,20 @@ import store from "../store/index";
 //guard middleware
 
 export default function setup() {
+  console.log("setup guards done");
   router.beforeEach((to, from, next) => {
     if (to.path !== "/login") {
-      if(!store.getters.isAuthorized) {
-        next('/login');
+      if (store.getters.isAuthorized) {
+        next();
+      } else {
+        next("/login");
       }
-    } else next();
+    } else {
+      if (store.getters.isAuthorized && to.path === "/login") {
+        next("/dashboard");
+      } else {
+        next();
+      }
+    }
   });
 }
