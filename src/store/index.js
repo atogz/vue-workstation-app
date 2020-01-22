@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
+import axios from "../plugins/api";
 
 Vue.use(Vuex);
 
@@ -28,13 +28,13 @@ export default new Vuex.Store({
       state.token = payload.token;
     },
     USER_DATA(state) {
-      console.log(state);
+      console.log("user.data", state);
     }
   },
   actions: {
     LOGIN({ commit }, { username, password }) {
       return axios
-        .post("http://b8n.ru:7777/v1/auth/login", {
+        .post("/auth/login", {
           username: username,
           password: password
         })
@@ -46,15 +46,11 @@ export default new Vuex.Store({
           }
         });
     },
-    GET_USER_DATA({ commit, state }) {
-      const token = state.token;
-      const header = `Authorization: Bearer ${token}`;
-      return axios
-        .get("http://b8n.ru:7777/v1/auth/profile", { headers: { header } })
-        .then(response => {
-          console.log(response);
-          commit("USER_DATA");
-        });
+    GET_USER_DATA({ commit }) {
+      return axios.get("/auth/profile").then(response => {
+        console.log(response);
+        commit("USER_DATA");
+      });
     }
   },
 

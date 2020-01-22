@@ -60,18 +60,19 @@ export default {
   methods: {
     async login() {
       try {
-        await this.$store.dispatch("LOGIN", {
-          username: this.username,
-          password: this.password
-        });
-        this.$router.push("/dashboard");
+        await this.$store
+          .dispatch("LOGIN", {
+            username: this.username,
+            password: this.password
+          })
+          .then(() => {
+            console.log('1');
+            this.$router.push("/dashboard");
+          });
       } catch (e) {
         this.error = e;
       }
     }
-  },
-  created() {
-    console.log(process.env);
   }
 };
 </script>

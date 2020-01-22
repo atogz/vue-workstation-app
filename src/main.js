@@ -1,9 +1,16 @@
 import Vue from "vue";
-import axios from "./plugins/axios";
+import axios from "./plugins/api";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./assets/tailwind.css";
+
+//helpers
+import interceptorsSetup from "./plugins/interceptors";
+import guardsSetup from "./plugins/guards";
+
+interceptorsSetup();
+guardsSetup();
 
 Vue.config.productionTip = false;
 
