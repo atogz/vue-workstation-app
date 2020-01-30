@@ -1,11 +1,9 @@
 import Vue from "vue";
 import axios from "axios";
 
-
 const instance = axios.create({
-  baseURL: "http://b8n.ru:7777/v1"
+  baseURL: "http://b8n.ru:7788/v1"
 });
-
 
 Vue.prototype.$axios = instance;
 

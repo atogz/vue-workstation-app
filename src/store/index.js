@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     appLoaded: false,
     user: {},
-    token: undefined
+    token: null
   },
 
   getters: {
@@ -26,7 +26,7 @@ export default new Vuex.Store({
   mutations: {
     LOADING_FINISHED(state) {
       state.appLoaded = true;
-      console.log('loading done', state.appLoaded);
+      console.log("loading done", state.appLoaded);
     },
 
     USER_LOGGED(state, payload) {
@@ -38,7 +38,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    APP_LOADED({ commit })   {
+    APP_LOADED({ commit }) {
       commit("LOADING_FINISHED");
     },
 
@@ -57,7 +57,7 @@ export default new Vuex.Store({
         });
     },
     GET_USER_DATA({ commit }) {
-      return axios.get("/auth/profile").then(response => {
+      return axios.get("/projects").then(response => {
         console.log(response);
         commit("USER_DATA");
       });
