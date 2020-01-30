@@ -19,14 +19,12 @@ export default new Vuex.Store({
       return state.user;
     },
     isAuthorized: (state, getters) => {
-      console.log(state.token);
-      return getters.getToken ? true : false;
+      return !!getters.getToken;
     }
   },
   mutations: {
     LOADING_FINISHED(state) {
       state.appLoaded = true;
-      console.log("loading done", state.appLoaded);
     },
 
     USER_LOGGED(state, payload) {
@@ -49,6 +47,7 @@ export default new Vuex.Store({
           password: password
         })
         .then(response => {
+          console.log("response from mirage", response.data);
           if (!response.data.success) {
             return Promise.reject(response.data.error);
           } else {

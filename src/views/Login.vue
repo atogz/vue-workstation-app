@@ -40,14 +40,6 @@
           >
             Войти
           </button>
-          <input
-            v-model="password"
-            :class="{ 'border-red-500': error }"
-            class="test"
-            id="password1"
-            type="password"
-            placeholder="2321312"
-          />
         </div>
       </form>
     </div>
