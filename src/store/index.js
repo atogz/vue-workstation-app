@@ -1,13 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
+import axios from "../plugins/api";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    appLoaded: false,
     user: {},
-    token: undefined
+    token: null,
+    currentProjects: []
   },
 
   getters: {
@@ -18,20 +20,33 @@ export default new Vuex.Store({
       return state.user;
     },
     isAuthorized: (state, getters) => {
-      console.log(state);
-      return getters.getToken ? true : false;
+      return !!getters.getToken;
+    },
+    getProjects: state => {
+      return state.currentProjects;
     }
   },
   mutations: {
+    LOADING_FINISHED(state) {
+      state.appLoaded = true;
+    },
+
     USER_LOGGED(state, payload) {
       state.user = payload.user;
       state.token = payload.token;
+    },
+    CURRENT_PROJECTS(state, payload) {
+      state.currentProjects = payload.projects;
     }
   },
   actions: {
+    APP_LOADED({ commit }) {
+      commit("LOADING_FINISHED");
+    },
+
     LOGIN({ commit }, { username, password }) {
       return axios
-        .post("http://b8n.ru:7777/v1/auth/login", {
+        .post("/auth/login", {
           username: username,
           password: password
         })
@@ -41,6 +56,14 @@ export default new Vuex.Store({
           } else {
             commit("USER_LOGGED", response.data);
           }
+        });
+    },
+    GET_PROJECTS({ commit, state }) {
+      return axios
+        .get("/projects?token=" + state.token + "&userRole=" + state.user.role)
+        .then(response => {
+          console.log(response);
+          commit("CURRENT_PROJECTS", response.data);
         });
     }
   },

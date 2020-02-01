@@ -1,14 +1,13 @@
 <template>
-  <main class="container mx-auto flex justify-center">
+  <main class="container mx-auto flex justify-center items-center h-fullVh">
     <div class="w-full max-w-xs">
       <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="mb-4">
           <label
             class="block text-gray-700 text-sm font-bold mb-2"
             for="username"
+            >Логин</label
           >
-            Логин
-          </label>
           <input
             v-model="username"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -21,13 +20,12 @@
           <label
             class="block text-gray-700 text-sm font-bold mb-2"
             for="password"
+            >Пароль</label
           >
-            Пароль
-          </label>
           <input
             v-model="password"
             :class="{ 'border-red-500': error }"
-            class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
             placeholder="******************"
@@ -36,9 +34,9 @@
         </div>
         <div class="flex items-center justify-between">
           <button
-            @click="login"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto"
             type="button"
+            @click="login()"
           >
             Войти
           </button>
@@ -60,18 +58,18 @@ export default {
   methods: {
     async login() {
       try {
-        await this.$store.dispatch("LOGIN", {
-          username: this.username,
-          password: this.password
-        });
-        this.$router.push("/");
+        await this.$store
+          .dispatch("LOGIN", {
+            username: this.username,
+            password: this.password
+          })
+          .then(() => {
+            this.$router.push("/projects");
+          });
       } catch (e) {
         this.error = e;
       }
     }
-  },
-  created() {
-    console.log(process.env);
   }
 };
 </script>
