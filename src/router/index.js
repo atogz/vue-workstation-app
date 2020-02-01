@@ -1,27 +1,23 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 import Login from "../views/Login";
-import Dashboard from "../views/Dashboard";
-
+import Projects from "../views/Projects";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    component: Home
+    component: Projects
   },
   {
     path: "/login",
     component: Login
   },
-
   {
-    path: "/dashboard",
-    component: Dashboard
-  },
-
+    path: "/projects",
+    component: Projects
+  }
 ];
 
 const router = new VueRouter({

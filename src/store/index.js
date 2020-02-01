@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     appLoaded: false,
     user: {},
-    token: null
+    token: null,
+    currentProjects: []
   },
 
   getters: {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     isAuthorized: (state, getters) => {
       return !!getters.getToken;
+    },
+    getProjects: state => {
+      return state.currentProjects;
     }
   },
   mutations: {
@@ -30,10 +34,9 @@ export default new Vuex.Store({
     USER_LOGGED(state, payload) {
       state.user = payload.user;
       state.token = payload.token;
-      console.log(state);
     },
-    USER_DATA(state) {
-      console.log("user.data", state);
+    CURRENT_PROJECTS(state, payload) {
+      state.currentProjects = payload.projects;
     }
   },
   actions: {
@@ -48,7 +51,6 @@ export default new Vuex.Store({
           password: password
         })
         .then(response => {
-          console.log("response from mirage", response.data);
           if (!response.data.success) {
             return Promise.reject(response.data.error);
           } else {
@@ -56,11 +58,13 @@ export default new Vuex.Store({
           }
         });
     },
-    GET_USER_DATA({ commit }) {
-      return axios.get("/projects").then(response => {
-        console.log(response);
-        commit("USER_DATA");
-      });
+    GET_PROJECTS({ commit, state }) {
+      return axios
+        .get("/projects?token=" + state.token + "&userRole=" + state.user.role)
+        .then(response => {
+          console.log(response);
+          commit("CURRENT_PROJECTS", response.data);
+        });
     }
   },
 

@@ -17,7 +17,10 @@ server.post("/api/auth/login", (schema, request) => {
         role: "manager"
       }
     };
-  } else if(attrs.username === "nikolay.trofimov" && attrs.password === "12345") {
+  } else if (
+    attrs.username === "nikolay.trofimov" &&
+    attrs.password === "12345"
+  ) {
     token = `f${(+new Date() + Math.floor(Math.random())).toString(16)}`; // instead of JWT for testing purposes
     return {
       success: true,
@@ -35,9 +38,29 @@ server.post("/api/auth/login", (schema, request) => {
       error: "Неверный логин или пароль"
     };
   }
-
-
-
 });
 
-//server.get("/api/dashboard")
+server.get("/api/projects", (schema, request) => {
+  if (
+    request.queryParams.token === token &&
+    request.queryParams.userRole !== "admin"
+  ) {
+    return {
+      success: true,
+      projects: [
+        { id: 1, name: 'Объект "Лианозово"' },
+        { id: 2, name: 'Объект "Чехов, коттедж"' }
+      ]
+    };
+  } else {
+    //для админа, видит все объекты
+    return {
+      success: true,
+      projects: [
+        { id: 1, name: 'Объект "Лианозово"' },
+        { id: 2, name: 'Объект "Чехов, коттедж"' },
+        { id: 3, name: 'Объект "Домодедово, аэропорт"' }
+      ]
+    };
+  }
+});

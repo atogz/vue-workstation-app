@@ -8,7 +8,6 @@ export default function setup() {
       if (token != null) {
         config.headers.Authorization = `Bearer ${token}`;
       }
-      console.log("request ", token);
       return config;
     },
     function(err) {

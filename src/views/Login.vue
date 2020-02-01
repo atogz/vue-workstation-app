@@ -64,7 +64,7 @@ export default {
             password: this.password
           })
           .then(() => {
-            this.$router.push("/dashboard");
+            this.$router.push("/projects");
           });
       } catch (e) {
         this.error = e;

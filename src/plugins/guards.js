@@ -14,7 +14,7 @@ export default function setup() {
       }
     } else {
       if (store.getters.isAuthorized && to.path === "/login") {
-        next("/dashboard");
+        next("/projects");
       } else {
         next();
       }

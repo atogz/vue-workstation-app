@@ -1,14 +1,18 @@
 <template>
-  <main>
+  <nav>
     <ul class="flex py-5 px-5 bg-blue-100">
       <li class="mr-3">
-        <router-link to="/dashboard/projects">
-          <a class="inline-block py-1 px-3" href="#">Объекты</a>
+        <router-link
+          class="inline-block py-1 px-3"
+          to="/projects"
+          active-class="bg-blue-500 border border-blue-500 rounded text-white"
+        >
+          Объекты
         </router-link>
       </li>
       <li class="mr-3">
         <a
-          class="inline-block hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-1 px-3"
+          class="inline-block hover:border-gray-200 border-0 rounded text-blue-500 hover:bg-gray-200 py-1 px-3"
           href="#"
           >Бригады</a
         >
@@ -21,24 +25,16 @@
         >
       </li>
     </ul>
-  </main>
+  </nav>
 </template>
 
 <script>
 export default {
+  name: "DashboardHeader",
   data() {
     return {
       user: {}
     };
-  },
-  methods: {
-    async test() {
-      try {
-        await this.$store.dispatch("GET_USER_DATA");
-      } catch (e) {
-        this.error = e;
-      }
-    }
   },
   created() {
     this.user = this.$store.getters.getUser;
