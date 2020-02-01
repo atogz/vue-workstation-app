@@ -30,6 +30,7 @@ export default new Vuex.Store({
     USER_LOGGED(state, payload) {
       state.user = payload.user;
       state.token = payload.token;
+      console.log(state);
     },
     USER_DATA(state) {
       console.log("user.data", state);
