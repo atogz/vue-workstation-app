@@ -1,17 +1,23 @@
 <template>
   <main>
     <app-header />
-    <div class="flex flex-wrap py-5 px-5">
+    <div class="flex flex-wrap">
       <div
-        class="w-1/4 flex flex-col"
-        v-for="project in getProjects"
+        class="max-w-sm py-5 px-5 mt-5 rounded overflow-hidden shadow-lg"
+        v-for="(project, index) in getProjects"
         :key="project.id"
+        :class="{ 'ml-8': index > 0 }"
       >
-        <div class="w-full">
-          {{ project.name }}
-        </div>
-        <div class="w-full mt-5">
-          {{ project.id }}
+        <img
+          class="w-full h-56"
+          :src="project.imageLink"
+          alt="Sunset in the mountains"
+        />
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">{{ project.name }}</div>
+          <p class="text-gray-700 text-base">
+            {{ project.description }}
+          </p>
         </div>
       </div>
     </div>
