@@ -94,8 +94,8 @@ server.get("/api/projects", (schema, request) => {
           imageLink:
             "https://f4.mirkvartir.me/custom/6a/6a18d55b-8580-4e6a-bfb6-b9aba0208920.jpg",
           totalCost: 250000,
-          totalTasks: 124,
-          tasksCompleted: 68
+          totalTasks: 4,
+          completedTasks: 2
         },
         {
           id: 2,
@@ -103,8 +103,8 @@ server.get("/api/projects", (schema, request) => {
           imageLink:
             "https://korteksplus.ru/assets/img/repair_service/remont-pod-kluch-v-krasnodarskom-krae.jpg",
           totalCost: 382313,
-          totalTasks: 43,
-          tasksCompleted: 11
+          totalTasks: 3,
+          completedTasks: 1
         }
       ]
     };
@@ -119,8 +119,8 @@ server.get("/api/projects", (schema, request) => {
           imageLink:
             "https://f4.mirkvartir.me/custom/6a/6a18d55b-8580-4e6a-bfb6-b9aba0208920.jpg",
           totalCost: 250000,
-          totalTasks: 124,
-          tasksCompleted: 68
+          totalTasks: 4,
+          completedTasks: 2
         },
         {
           id: 2,
@@ -128,8 +128,8 @@ server.get("/api/projects", (schema, request) => {
           imageLink:
             "https://korteksplus.ru/assets/img/repair_service/remont-pod-kluch-v-krasnodarskom-krae.jpg",
           totalCost: 3823135,
-          totalTasks: 43,
-          tasksCompleted: 11
+          totalTasks: 3,
+          completedTasks: 1
         },
         {
           id: 3,
@@ -137,8 +137,8 @@ server.get("/api/projects", (schema, request) => {
           imageLink:
             "https://www.biletik.aero/upload/resize_cache/medialibrary/414/compressed/414ba724f06584b7f17a86e57df08aad.jpg",
           totalCost: 689090,
-          totalTasks: 66,
-          tasksCompleted: 54
+          totalTasks: 6,
+          completedTasks: 4
         }
       ]
     };

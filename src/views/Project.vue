@@ -15,35 +15,35 @@
       <ul class="flex w-full ml-10">
         <li class="flex-1 mr-2">
           <a
-            class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white"
+            class="text-center block border border-blue-500 rounded py-2 px-4 bg-teal-500 hover:bg-teal-700 text-white"
             href="#"
             >Задачи</a
           >
         </li>
         <li class="flex-1 mr-2">
           <a
-            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            class="text-center block border border-white rounded hover:border-gray-200 text-teal-600 hover:bg-gray-200 py-2 px-4"
             href="#"
             >Материалы</a
           >
         </li>
         <li class="flex-1 mr-2">
           <a
-            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            class="text-center block border border-white rounded hover:border-gray-200 text-teal-600 hover:bg-gray-200 py-2 px-4"
             href="#"
             >Бригада</a
           >
         </li>
         <li class="flex-1 mr-2">
           <a
-            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            class="text-center block border border-white rounded hover:border-gray-200 text-teal-600 hover:bg-gray-200 py-2 px-4"
             href="#"
             >Смета</a
           >
         </li>
         <li class="flex-1 mr-2">
           <a
-            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            class="text-center block border border-white rounded hover:border-gray-200 text-teal-600 hover:bg-gray-200 py-2 px-4"
             href="#"
             >Заметки</a
           >
@@ -53,19 +53,21 @@
 
     <div class="w-full flex flex-col" v-if="getTasks.length">
       <div class="w-full flex py-5 px-5">
-        <p>Задач: {{ getTasks.length }}</p>
+        <p>Задач: {{ project.totalTasks }}</p>
         <p class="ml-10">
-          Выполнено: {{ getCompletedTasks.length }}
+          Выполнено: {{ project.completedTasks }}
           <b>({{ completedProgress }}%)</b>
         </p>
       </div>
       <div class="w-full mt-5 border-t-2 py-5 px-5">
         <div
           class="w-full flex flex-col"
-          v-for="task in getTasks"
-          :key="task.project_id"
+          v-for="project in getTasks"
+          :key="project.project_id"
         >
-          {{ task }}
+          <div class="w-full" v-for="task in project.tasks" :key="task.id">
+            {{ task }}
+          </div>
         </div>
       </div>
     </div>
@@ -100,11 +102,9 @@ export default {
   methods: {},
   computed: {
     completedProgress() {
-      console.log(this.getTasks.length);
-      console.log(this.getCompletedTasks.length);
       const percentage =
-        (this.getTasks.length / this.getCompletedTasks.length) * 100;
-      return percentage !== Infinity ? percentage : 0;
+        (this.project.completedTasks / this.project.totalTasks) * 100;
+      return percentage;
     },
     getTasks() {
       return this.$store.getters.getProjectTasks;
