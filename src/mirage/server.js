@@ -52,13 +52,19 @@ server.get("/api/projects", (schema, request) => {
           id: 1,
           name: 'Объект "Лианозово"',
           imageLink:
-            "https://f4.mirkvartir.me/custom/6a/6a18d55b-8580-4e6a-bfb6-b9aba0208920.jpg"
+            "https://f4.mirkvartir.me/custom/6a/6a18d55b-8580-4e6a-bfb6-b9aba0208920.jpg",
+          totalCost: 250000,
+          totalTasks: 124,
+          tasksCompleted: 68
         },
         {
           id: 2,
           name: 'Объект "Чехов, коттедж"',
           imageLink:
-            "https://korteksplus.ru/assets/img/repair_service/remont-pod-kluch-v-krasnodarskom-krae.jpg"
+            "https://korteksplus.ru/assets/img/repair_service/remont-pod-kluch-v-krasnodarskom-krae.jpg",
+          totalCost: 382313,
+          totalTasks: 43,
+          tasksCompleted: 11
         }
       ]
     };
@@ -71,19 +77,28 @@ server.get("/api/projects", (schema, request) => {
           id: 1,
           name: 'Объект "Лианозово"',
           imageLink:
-            "https://f4.mirkvartir.me/custom/6a/6a18d55b-8580-4e6a-bfb6-b9aba0208920.jpg"
+            "https://f4.mirkvartir.me/custom/6a/6a18d55b-8580-4e6a-bfb6-b9aba0208920.jpg",
+          totalCost: 250000,
+          totalTasks: 124,
+          tasksCompleted: 68
         },
         {
           id: 2,
           name: 'Объект "Чехов, коттедж"',
           imageLink:
-            "https://korteksplus.ru/assets/img/repair_service/remont-pod-kluch-v-krasnodarskom-krae.jpg"
+            "https://korteksplus.ru/assets/img/repair_service/remont-pod-kluch-v-krasnodarskom-krae.jpg",
+          totalCost: 3823135,
+          totalTasks: 43,
+          tasksCompleted: 11
         },
         {
           id: 3,
           name: 'Объект "Домодедово"',
           imageLink:
-            "https://www.biletik.aero/upload/resize_cache/medialibrary/414/compressed/414ba724f06584b7f17a86e57df08aad.jpg"
+            "https://www.biletik.aero/upload/resize_cache/medialibrary/414/compressed/414ba724f06584b7f17a86e57df08aad.jpg",
+          totalCost: 689090,
+          totalTasks: 66,
+          tasksCompleted: 54
         }
       ]
     };

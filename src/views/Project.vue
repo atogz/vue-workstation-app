@@ -2,6 +2,8 @@
   <main>
     <app-header />
     {{ id }}
+    {{ project }}
+    <img :src="project.imageLink" alt="" class="max-w-xl"/>
   </main>
 </template>
 
@@ -15,6 +17,9 @@ export default {
   props: {
     id: {
       type: Number
+    },
+    project: {
+      type: Object
     }
   }
 };

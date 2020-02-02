@@ -11,7 +11,7 @@
         <router-link
           :to="{
             name: 'project',
-            params: { id: project.id }
+            params: { id: project.id, project: project }
           }"
         >
           <img
