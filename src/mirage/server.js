@@ -1,6 +1,46 @@
 import { Server } from "miragejs";
 const server = new Server();
 let token = null; //check token for every request
+let tasksDb = [
+  {
+    project_id: 1,
+    tasks: [
+      {
+        id: 1,
+        name: "Задача 1",
+        description: "Описание задачи 1",
+        deadline: "22.03.2020",
+        completed: true
+      },
+      {
+        id: 2,
+        name: "Задача 2",
+        description: "Описание задачи 2",
+        deadline: "12.11.2020",
+        completed: false
+      }
+    ]
+  },
+  {
+    project_id: 1,
+    tasks: [
+      {
+        id: 3,
+        name: "Задача 3",
+        description: "Описание задачи 3",
+        deadline: "22.03.2020",
+        completed: true
+      },
+      {
+        id: 4,
+        name: "Задача 4",
+        description: "Описание задачи 4",
+        deadline: "12.11.2020",
+        completed: false
+      }
+    ]
+  }
+];
 
 //routes
 server.post("/api/auth/login", (schema, request) => {
@@ -101,6 +141,19 @@ server.get("/api/projects", (schema, request) => {
           tasksCompleted: 54
         }
       ]
+    };
+  }
+});
+
+server.get("/api/tasks", (schema, request) => {
+  if (request.queryParams.token === token && request.queryParams.projectId) {
+    const id = parseInt(request.queryParams.projectId);
+    const getProjectTasks = projectId => {
+      return tasksDb.filter(item => item.project_id === projectId);
+    };
+    return {
+      success: true,
+      tasks: getProjectTasks(id)
     };
   }
 });

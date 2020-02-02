@@ -1,9 +1,79 @@
 <template>
   <main>
     <app-header />
-    {{ id }}
-    {{ project }}
-    <img :src="project.imageLink" alt="" class="max-w-xl"/>
+    <div class="flex w-full py-5 px-5 items-center">
+      <div class="w-1/2 flex max-w-full border-2 rounded">
+        <div class="w-full flex items-center justify-around">
+          <div class="w-1/3">
+            <img :src="project.imageLink" alt="" />
+          </div>
+          <div class="w-2/3 text-center uppercase">
+            <h3 class="text-xl">{{ project.name }}</h3>
+          </div>
+        </div>
+      </div>
+      <ul class="flex w-full ml-10">
+        <li class="flex-1 mr-2">
+          <a
+            class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white"
+            href="#"
+            >Задачи</a
+          >
+        </li>
+        <li class="flex-1 mr-2">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+            >Материалы</a
+          >
+        </li>
+        <li class="flex-1 mr-2">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+            >Бригада</a
+          >
+        </li>
+        <li class="flex-1 mr-2">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+            >Смета</a
+          >
+        </li>
+        <li class="flex-1 mr-2">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+            >Заметки</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="w-full flex flex-col" v-if="getTasks.length">
+      <div class="w-full flex py-5 px-5">
+        <p>Задач: {{ getTasks.length }}</p>
+        <p class="ml-10">
+          Выполнено: {{ getCompletedTasks.length }}
+          <b>({{ completedProgress }}%)</b>
+        </p>
+      </div>
+      <div class="w-full mt-5 border-t-2 py-5 px-5">
+        <div
+          class="w-full flex flex-col"
+          v-for="task in getTasks"
+          :key="task.project_id"
+        >
+          {{ task }}
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex flex-col" v-else>
+      <div class="w-full flex py-5 px-5">
+        <p>Задач пока не добавлено</p>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -21,6 +91,37 @@ export default {
     project: {
       type: Object
     }
+  },
+  data() {
+    return {
+      projectTasks: []
+    };
+  },
+  methods: {},
+  computed: {
+    completedProgress() {
+      console.log(this.getTasks.length);
+      console.log(this.getCompletedTasks.length);
+      const percentage =
+        (this.getTasks.length / this.getCompletedTasks.length) * 100;
+      return percentage !== Infinity ? percentage : 0;
+    },
+    getTasks() {
+      return this.$store.getters.getProjectTasks;
+    },
+    getCompletedTasks() {
+      const projects = this.getTasks;
+      const tasks = projects.map(project => {
+        return project.tasks.filter(item => item.completed === true);
+      });
+      return tasks;
+    }
+  },
+  created() {
+    this.$loading(true);
+    this.$store.dispatch("GET_PROJECT_TASKS", this.project.id).then(() => {
+      this.$loading(false);
+    });
   }
 };
 </script>
