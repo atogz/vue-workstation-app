@@ -9,7 +9,8 @@ export default new Vuex.Store({
     appLoaded: false,
     user: {},
     token: null,
-    currentProjects: []
+    currentProjects: [],
+    projectTasks: []
   },
 
   getters: {
@@ -24,7 +25,10 @@ export default new Vuex.Store({
     },
     getProjects: state => {
       return state.currentProjects;
-    }
+    },
+    getProjectTasks: state => {
+      return state.projectTasks;
+    },
   },
   mutations: {
     LOADING_FINISHED(state) {
@@ -37,6 +41,9 @@ export default new Vuex.Store({
     },
     CURRENT_PROJECTS(state, payload) {
       state.currentProjects = payload.projects;
+    },
+    PROJECT_TASKS(state, payload) {
+      state.projectTasks = payload.tasks;
     }
   },
   actions: {
@@ -62,10 +69,16 @@ export default new Vuex.Store({
       return axios
         .get("/projects?token=" + state.token + "&userRole=" + state.user.role)
         .then(response => {
-          console.log(response);
           commit("CURRENT_PROJECTS", response.data);
         });
-    }
+    },
+    GET_PROJECT_TASKS({ commit, state }, projectId) {
+      return axios
+        .get("/tasks?token=" + state.token + "&projectId=" + projectId)
+        .then(response => {
+          commit("PROJECT_TASKS", response.data);
+        });
+    },
   },
 
   modules: {}
