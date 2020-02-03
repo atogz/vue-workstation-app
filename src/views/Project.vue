@@ -80,6 +80,9 @@
       <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
         <div class="w-full flex py-5 px-5">
           <p>Задач: {{ getProjectData.tasks.length }}</p>
+          <p class="ml-5">
+            Выполнено: {{ getCompletedTasks.length }} <b>({{ progress }}%)</b>
+          </p>
         </div>
         <div class="w-full mt-5 border-t-2 py-5 px-5">
           <div
@@ -128,7 +131,10 @@
     <div class="w-full" v-if="activeScreen === 'materials'">
       <div class="w-full flex flex-col" v-if="getProjectData.materials.length">
         <div class="w-full flex py-5 px-5">
-          <p>Материалов: 3123 на сумму 32312 руб.</p>
+          <p>
+            Материалов: {{ getProjectData.materials.length }} на сумму 32312
+            руб.
+          </p>
         </div>
         <div
           class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
@@ -139,9 +145,38 @@
             <div class="w-1/5 flex flex-col">
               <p class="text-xs flex items-center text-gray-600 pb-2">
                 #{{ material.id }}
-                <span class="ml-3 text-gray-800 font-bold text-lg">{{
-                  material.name
-                }}</span>
+              </p>
+            </div>
+            <div class="w-1/5 flex">
+              <p class="ml-3 text-gray-700 text-lg">
+                {{ material.name }}
+              </p>
+            </div>
+            <div class="w-1/5 flex items-center justify-center">
+              <span
+                class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
+                @click="material.count--"
+                >-</span
+              >
+              <p class="ml-3 text-gray-800 text-lg">
+                <b>{{ material.count > 0 ? material.count : 0 }}</b>
+                <i> {{ material.baseMeasure }}.</i>
+              </p>
+              <span
+                class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
+                @click="material.count++"
+                >+</span
+              >
+            </div>
+            <div class="w-1/5 flex"></div>
+            <div class="w-1/5 flex">
+              <p class="ml-3 text-gray-800 text-lg">
+                <b>{{
+                  material.basePrice * material.count > 0
+                    ? material.basePrice * material.count
+                    : 0
+                }}</b>
+                <i> руб.</i>
               </p>
             </div>
           </div>
@@ -173,8 +208,6 @@ export default {
   },
   data() {
     return {
-      projectTasks: [],
-      projectMaterials: [],
       activeScreen: "tasks"
     };
   },
@@ -189,15 +222,19 @@ export default {
     }
   },
   computed: {
-    //todo  getter for completed tasks
-    // completedProgress() {
-    //   const percentage = Math.floor(
-    //     (this.getProjectData.tasks.length / this.project.totalTasks) * 100
-    //   );
-    //   return percentage;
-    // },
+    progress() {
+      const percentage = Math.floor(
+        (this.getCompletedTasks.length / this.getProjectData.tasks.length) * 100
+      );
+      return percentage;
+    },
     getProjectData() {
       return this.$store.getters.getProjectData;
+    },
+    getCompletedTasks() {
+      return this.getProjectData.tasks.filter(item => {
+        return item.completed === true;
+      });
     }
   },
   created() {
