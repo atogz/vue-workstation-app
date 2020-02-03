@@ -39,18 +39,6 @@
         </li>
         <li class="flex-1 mr-2">
           <a
-            @click="activeScreen = 'brigade'"
-            :class="{
-              'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
-                activeScreen === 'brigade'
-            }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4"
-            href="#"
-            >Бригада</a
-          >
-        </li>
-        <li class="flex-1 mr-2">
-          <a
             @click="activeScreen = 'estimate'"
             :class="{
               'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
@@ -59,6 +47,18 @@
             class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4"
             href="#"
             >Смета</a
+          >
+        </li>
+        <li class="flex-1 mr-2">
+          <a
+            @click="activeScreen = 'brigade'"
+            :class="{
+              'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
+                activeScreen === 'brigade'
+            }"
+            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4"
+            href="#"
+            >Бригада</a
           >
         </li>
         <li class="flex-1 mr-2">
@@ -123,23 +123,38 @@
       </div>
       <div class="w-full flex flex-col" v-else>
         <div class="w-full flex py-5 px-5">
-          <p>Задач пока не добавлено1</p>
+          <p>Задач пока не добавлено</p>
         </div>
       </div>
     </div>
 
     <div class="w-full" v-if="activeScreen === 'materials'">
       <div class="w-full flex flex-col" v-if="getProjectData.materials.length">
-        <div class="w-full flex py-5 px-5">
-          <p>
-            Материалов: {{ getProjectData.materials.length }} на сумму 32312
-            руб.
-          </p>
+        <div class="w-full flex py-5 px-5 items-center justify-between">
+          <div class="w-2/3">
+            <p>
+              Материалов: {{ getProjectData.materials.length }} ({{
+                getMaterialsTotalCount > 0 ? getMaterialsTotalCount : 0
+              }}
+              ед.) на сумму
+              <b>{{ getMaterialsTotalCost > 0 ? getMaterialsTotalCost : 0 }}</b>
+              руб.
+            </p>
+          </div>
+          <div class="w-1/3">
+            <button
+              @click="addMaterial()"
+              class="float-right py-2 px-2 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 "
+            >
+              добавить материал
+            </button>
+          </div>
         </div>
+
         <div
           class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
-          v-for="material in getProjectData.materials"
-          :key="material.id"
+          v-for="(material, index) in getProjectData.materials"
+          :key="index"
         >
           <div class="w-full flex items-center justify-center">
             <div class="w-1/5 flex flex-col">
@@ -154,6 +169,7 @@
             </div>
             <div class="w-1/5 flex items-center justify-center">
               <span
+                v-if="material.count > 0"
                 class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
                 @click="material.count--"
                 >-</span
@@ -168,9 +184,8 @@
                 >+</span
               >
             </div>
-            <div class="w-1/5 flex"></div>
-            <div class="w-1/5 flex">
-              <p class="ml-3 text-gray-800 text-lg">
+            <div class="w-2/5 flex items-center">
+              <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
                 <b>{{
                   material.basePrice * material.count > 0
                     ? material.basePrice * material.count
@@ -178,13 +193,22 @@
                 }}</b>
                 <i> руб.</i>
               </p>
+              <transition name="fade" mode="out-in" v-if="material.count < 1">
+                <button
+                  @click="removeMaterial(index)"
+                  class="py-2 px-2 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                >
+                  удалить
+                </button>
+              </transition>
             </div>
           </div>
         </div>
       </div>
+
       <div class="w-full flex flex-col" v-else>
         <div class="w-full flex py-5 px-5">
-          <p>Задач пока не добавлено 2</p>
+          <p>Материалов пока не добавлено</p>
         </div>
       </div>
     </div>
@@ -208,7 +232,9 @@ export default {
   },
   data() {
     return {
-      activeScreen: "tasks"
+      activeScreen: "tasks",
+      totalMaterialsCount: 0,
+      totalMaterialsCost: 0
     };
   },
   methods: {
@@ -219,6 +245,43 @@ export default {
       } else {
         this.project.completedTasks--;
       }
+    },
+    addMaterial() {
+      let itemOne = {
+        id: 51,
+        name: "Ламинат",
+        basePrice: 250,
+        baseMeasure: "м2",
+        count: 1
+      };
+      let itemTwo = {
+        id: 52,
+        name: "Краска акриловая",
+        basePrice: 250,
+        baseMeasure: "бан",
+        count: 1
+      };
+
+      let itemThree = {
+        id: 53,
+        name: "Цемент, мешок",
+        basePrice: 780,
+        baseMeasure: "шт",
+        count: 1
+      };
+
+      let randomPick = Math.floor(Math.random() * 3);
+
+      if (randomPick === 0) {
+        return this.getProjectData.materials.unshift(itemOne);
+      } else if (randomPick === 1) {
+        return this.getProjectData.materials.unshift(itemTwo);
+      } else {
+        return this.getProjectData.materials.unshift(itemThree);
+      }
+    },
+    removeMaterial(index) {
+      return this.getProjectData.materials.splice(index, 1);
     }
   },
   computed: {
@@ -235,6 +298,18 @@ export default {
       return this.getProjectData.tasks.filter(item => {
         return item.completed === true;
       });
+    },
+    getMaterialsTotalCount() {
+      const materials = this.getProjectData.materials;
+      return materials.reduce((total, currentValue) => {
+        return total + currentValue.count;
+      }, this.totalMaterialsCount);
+    },
+    getMaterialsTotalCost() {
+      const materials = this.getProjectData.materials;
+      return materials.reduce((total, currentValue) => {
+        return total + currentValue.basePrice * currentValue.count;
+      }, this.totalMaterialsCost);
     }
   },
   created() {
