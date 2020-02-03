@@ -75,143 +75,153 @@
         </li>
       </ul>
     </div>
-
-    <div class="w-full" v-if="activeScreen === 'tasks'">
-      <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
-        <div class="w-full flex py-5 px-5">
-          <p>Задач: {{ getProjectData.tasks.length }}</p>
-          <p class="ml-5">
-            Выполнено: {{ getCompletedTasks.length }} <b>({{ progress }}%)</b>
-          </p>
+    <transition name="fade" mode="out in">
+      <div class="w-full" v-if="activeScreen === 'tasks'">
+        <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
+          <div class="w-full flex py-5 px-5">
+            <p>Задач: {{ getProjectData.tasks.length }}</p>
+            <p class="ml-5">
+              Выполнено: {{ getCompletedTasks.length }} <b>({{ progress }}%)</b>
+            </p>
+          </div>
+          <div class="w-full mt-5 border-t-2 py-5 px-5">
+            <div
+              class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
+              v-for="task in getProjectData.tasks"
+              :key="task.id"
+            >
+              <div class="w-full flex items-center justify-center">
+                <div class="w-1/5 flex flex-col">
+                  <p class="text-xs flex items-center text-gray-600 pb-2">
+                    #{{ task.id }}
+                    <span class="ml-3 text-gray-800 font-bold text-lg">{{
+                      task.name
+                    }}</span>
+                  </p>
+                  <p
+                    class="w-full flex justify-center h-12 items-center py-2 px-2 text-center text-sm uppercase bg-red-300"
+                    :class="{ 'bg-green-300': task.completed }"
+                  >
+                    {{ task.completed ? "Выполнена" : "Не выполнена" }}
+                  </p>
+                </div>
+                <div
+                  class="w-3/5 ml-10 text-sm text-gray-600 px-5 text-justify"
+                >
+                  <p>{{ task.description }}</p>
+                </div>
+                <button
+                  @click="
+                    (task.completed = !task.completed),
+                      changeTaskStatus(task.completed)
+                  "
+                  class="w-1/5 ml-20 py-5 px-5 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 "
+                >
+                  изменить статус
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="w-full mt-5 border-t-2 py-5 px-5">
+        <div class="w-full flex flex-col" v-else>
+          <div class="w-full flex py-5 px-5">
+            <p>Задач пока не добавлено</p>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="fade" mode="out in">
+      <div class="w-full" v-if="activeScreen === 'materials'">
+        <div
+          class="w-full flex flex-col"
+          v-if="getProjectData.materials.length"
+        >
+          <div class="w-full flex py-5 px-5 items-center justify-between">
+            <div class="w-2/3">
+              <p>
+                Материалов: {{ getProjectData.materials.length }} ({{
+                  getMaterialsTotalCount > 0 ? getMaterialsTotalCount : 0
+                }}
+                ед.) на сумму
+                <b>{{
+                  getMaterialsTotalCost > 0 ? getMaterialsTotalCost : 0
+                }}</b>
+                руб.
+              </p>
+            </div>
+            <div class="w-1/3">
+              <button
+                @click="addMaterial()"
+                class="float-right py-2 px-2 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 "
+              >
+                добавить материал
+              </button>
+            </div>
+          </div>
+
           <div
             class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
-            v-for="task in getProjectData.tasks"
-            :key="task.id"
+            v-for="(material, index) in getProjectData.materials"
+            :key="index"
           >
             <div class="w-full flex items-center justify-center">
               <div class="w-1/5 flex flex-col">
                 <p class="text-xs flex items-center text-gray-600 pb-2">
-                  #{{ task.id }}
-                  <span class="ml-3 text-gray-800 font-bold text-lg">{{
-                    task.name
-                  }}</span>
-                </p>
-                <p
-                  class="w-full flex justify-center h-12 items-center py-2 px-2 text-center text-sm uppercase bg-red-300"
-                  :class="{ 'bg-green-300': task.completed }"
-                >
-                  {{ task.completed ? "Выполнена" : "Не выполнена" }}
+                  #{{ material.id }}
                 </p>
               </div>
-              <div class="w-3/5 ml-10 text-sm text-gray-600 px-5 text-justify">
-                <p>{{ task.description }}</p>
+              <div class="w-1/5 flex">
+                <p class="ml-3 text-gray-700 text-lg">
+                  {{ material.name }}
+                </p>
               </div>
-              <button
-                @click="
-                  (task.completed = !task.completed),
-                    changeTaskStatus(task.completed)
-                "
-                class="w-1/5 ml-20 py-5 px-5 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 "
-              >
-                изменить статус
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="w-full flex flex-col" v-else>
-        <div class="w-full flex py-5 px-5">
-          <p>Задач пока не добавлено</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="w-full" v-if="activeScreen === 'materials'">
-      <div class="w-full flex flex-col" v-if="getProjectData.materials.length">
-        <div class="w-full flex py-5 px-5 items-center justify-between">
-          <div class="w-2/3">
-            <p>
-              Материалов: {{ getProjectData.materials.length }} ({{
-                getMaterialsTotalCount > 0 ? getMaterialsTotalCount : 0
-              }}
-              ед.) на сумму
-              <b>{{ getMaterialsTotalCost > 0 ? getMaterialsTotalCost : 0 }}</b>
-              руб.
-            </p>
-          </div>
-          <div class="w-1/3">
-            <button
-              @click="addMaterial()"
-              class="float-right py-2 px-2 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 "
-            >
-              добавить материал
-            </button>
-          </div>
-        </div>
-
-        <div
-          class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
-          v-for="(material, index) in getProjectData.materials"
-          :key="index"
-        >
-          <div class="w-full flex items-center justify-center">
-            <div class="w-1/5 flex flex-col">
-              <p class="text-xs flex items-center text-gray-600 pb-2">
-                #{{ material.id }}
-              </p>
-            </div>
-            <div class="w-1/5 flex">
-              <p class="ml-3 text-gray-700 text-lg">
-                {{ material.name }}
-              </p>
-            </div>
-            <div class="w-1/5 flex items-center justify-center">
-              <span
-                v-if="material.count > 0"
-                class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
-                @click="material.count--"
-                >-</span
-              >
-              <p class="ml-3 text-gray-800 text-lg">
-                <b>{{ material.count > 0 ? material.count : 0 }}</b>
-                <i> {{ material.baseMeasure }}.</i>
-              </p>
-              <span
-                class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
-                @click="material.count++"
-                >+</span
-              >
-            </div>
-            <div class="w-2/5 flex items-center">
-              <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
-                <b>{{
-                  material.basePrice * material.count > 0
-                    ? material.basePrice * material.count
-                    : 0
-                }}</b>
-                <i> руб.</i>
-              </p>
-              <transition name="fade" mode="out-in" v-if="material.count < 1">
-                <button
-                  @click="removeMaterial(index)"
-                  class="py-2 px-2 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+              <div class="w-1/5 flex items-center justify-center">
+                <span
+                  v-if="material.count > 0"
+                  class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
+                  @click="material.count--"
+                  >-</span
                 >
-                  удалить
-                </button>
-              </transition>
+                <p class="ml-3 text-gray-800 text-lg">
+                  <b>{{ material.count > 0 ? material.count : 0 }}</b>
+                  <i> {{ material.baseMeasure }}.</i>
+                </p>
+                <span
+                  class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
+                  @click="material.count++"
+                  >+</span
+                >
+              </div>
+              <div class="w-2/5 flex items-center">
+                <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
+                  <b>{{
+                    material.basePrice * material.count > 0
+                      ? material.basePrice * material.count
+                      : 0
+                  }}</b>
+                  <i> руб.</i>
+                </p>
+                <transition name="fade" mode="out-in" v-if="material.count < 1">
+                  <button
+                    @click="removeMaterial(index)"
+                    class="py-2 px-2 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                  >
+                    удалить
+                  </button>
+                </transition>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="w-full flex flex-col" v-else>
-        <div class="w-full flex py-5 px-5">
-          <p>Материалов пока не добавлено</p>
+        <div class="w-full flex flex-col" v-else>
+          <div class="w-full flex py-5 px-5">
+            <p>Материалов пока не добавлено</p>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </main>
 </template>
 
