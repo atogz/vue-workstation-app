@@ -24,6 +24,12 @@
             <p class="text-gray-700 text-base">
               {{ project.description }}
             </p>
+            <p class="text-gray-700 text-base">
+              смета: {{ project.totalCost }} руб.
+            </p>
+            <p class="text-gray-700 text-base">
+              задач {{ project.completedTasks }}/{{ project.totalTasks }}
+            </p>
           </div>
         </router-link>
       </div>

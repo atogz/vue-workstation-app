@@ -10,7 +10,7 @@ export default new Vuex.Store({
     user: {},
     token: null,
     currentProjects: [],
-    projectTasks: []
+    projectData: {},
   },
 
   getters: {
@@ -26,9 +26,9 @@ export default new Vuex.Store({
     getProjects: state => {
       return state.currentProjects;
     },
-    getProjectTasks: state => {
-      return state.projectTasks;
-    },
+    getProjectData: state => {
+      return state.projectData;
+    }
   },
   mutations: {
     LOADING_FINISHED(state) {
@@ -42,9 +42,11 @@ export default new Vuex.Store({
     CURRENT_PROJECTS(state, payload) {
       state.currentProjects = payload.projects;
     },
-    PROJECT_TASKS(state, payload) {
-      state.projectTasks = payload.tasks;
-    }
+    PROJECT_DATA(state, payload) {
+      console.log('project_data_commit ',payload);
+      state.projectData = payload.data;
+      console.log(state.projectData);
+    },
   },
   actions: {
     APP_LOADED({ commit }) {
@@ -72,11 +74,12 @@ export default new Vuex.Store({
           commit("CURRENT_PROJECTS", response.data);
         });
     },
-    GET_PROJECT_TASKS({ commit, state }, projectId) {
+    GET_PROJECT_DATA({ commit, state }, projectId) {
+      console.log('dispatch ', projectId);
       return axios
-        .get("/tasks?token=" + state.token + "&projectId=" + projectId)
+        .get("/project?token=" + state.token + "&projectId=" + projectId)
         .then(response => {
-          commit("PROJECT_TASKS", response.data);
+          commit("PROJECT_DATA", response.data);
         });
     },
   },
