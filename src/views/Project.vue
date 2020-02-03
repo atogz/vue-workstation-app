@@ -76,100 +76,83 @@
       </ul>
     </div>
 
-    <transition-group name="fade" mode="out-in">
-      <div class="w-full" v-if="activeScreen === 'tasks'" :key="activeScreen">
-        <div class="w-full flex flex-col" v-if="getTasks.length">
-          <div class="w-full flex py-5 px-5">
-            <p>Задач: {{ project.totalTasks }}</p>
-            <p class="ml-10">
-              Выполнено: {{ project.completedTasks }}
-              <b>({{ completedProgress }}%)</b>
-            </p>
-          </div>
-          <div class="w-full mt-5 border-t-2 py-5 px-5">
-            <div
-              class="w-full flex flex-col"
-              v-for="project in getTasks"
-              :key="project.project_id"
-            >
-              <div
-                class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
-                v-for="task in project.tasks"
-                :key="task.id"
-              >
-                <div class="w-full flex items-center justify-center">
-                  <div class="w-1/5 flex flex-col">
-                    <p class="text-xs flex items-center text-gray-600 pb-2">
-                      #{{ task.id }}
-                      <span class="ml-3 text-gray-800 font-bold text-lg">{{
-                        task.name
-                      }}</span>
-                    </p>
-                    <p
-                      class="w-1/2 py-2 px-2 text-center text-xs uppercase bg-red-300"
-                      :class="{ 'bg-green-300': task.completed }"
-                    >
-                      {{ task.completed ? "Выполнена" : "Не выполнена" }}
-                    </p>
-                  </div>
-                  <div class="w-3/5 text-sm text-gray-600 px-5 text-justify">
-                    <p>{{ task.description }}</p>
-                  </div>
-                  <button
-                    @click="
-                      (task.completed = !task.completed),
-                        changeTaskStatus(task.completed)
-                    "
-                    class="w-1/5 ml-20 py-5 px-5 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 "
-                  >
-                    изменить статус
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="w-full" v-if="activeScreen === 'tasks'">
+      <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
+        <div class="w-full flex py-5 px-5">
+          <p>Задач: {{ getProjectData.tasks.length }}</p>
         </div>
-        <div class="w-full flex flex-col" v-else>
-          <div class="w-full flex py-5 px-5">
-            <p>Задач пока не добавлено</p>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="w-full"
-        v-if="activeScreen === 'materials'"
-        :key="activeScreen"
-      >
-        <div class="w-full flex flex-col">
-          {{ getMaterials }}
-          <div class="w-full flex py-5 px-5">
-            <p>Материалов: 3123 на сумму 32312 руб.</p>
-          </div>
+        <div class="w-full mt-5 border-t-2 py-5 px-5">
           <div
             class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
-            v-for="material in projectMaterials"
-            :key="material.id"
+            v-for="task in getProjectData.tasks"
+            :key="task.id"
           >
             <div class="w-full flex items-center justify-center">
               <div class="w-1/5 flex flex-col">
                 <p class="text-xs flex items-center text-gray-600 pb-2">
-                  #{{ material.id }}
+                  #{{ task.id }}
                   <span class="ml-3 text-gray-800 font-bold text-lg">{{
-                    material.name
+                    task.name
                   }}</span>
                 </p>
+                <p
+                  class="w-full flex justify-center h-12 items-center py-2 px-2 text-center text-sm uppercase bg-red-300"
+                  :class="{ 'bg-green-300': task.completed }"
+                >
+                  {{ task.completed ? "Выполнена" : "Не выполнена" }}
+                </p>
               </div>
+              <div class="w-3/5 ml-10 text-sm text-gray-600 px-5 text-justify">
+                <p>{{ task.description }}</p>
+              </div>
+              <button
+                @click="
+                  (task.completed = !task.completed),
+                    changeTaskStatus(task.completed)
+                "
+                class="w-1/5 ml-20 py-5 px-5 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 "
+              >
+                изменить статус
+              </button>
             </div>
           </div>
         </div>
       </div>
       <div class="w-full flex flex-col" v-else>
         <div class="w-full flex py-5 px-5">
-          <p>Задач пока не добавлено</p>
+          <p>Задач пока не добавлено1</p>
         </div>
       </div>
-    </transition-group>
+    </div>
+
+    <div class="w-full" v-if="activeScreen === 'materials'">
+      <div class="w-full flex flex-col" v-if="getProjectData.materials.length">
+        <div class="w-full flex py-5 px-5">
+          <p>Материалов: 3123 на сумму 32312 руб.</p>
+        </div>
+        <div
+          class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
+          v-for="material in getProjectData.materials"
+          :key="material.id"
+        >
+          <div class="w-full flex items-center justify-center">
+            <div class="w-1/5 flex flex-col">
+              <p class="text-xs flex items-center text-gray-600 pb-2">
+                #{{ material.id }}
+                <span class="ml-3 text-gray-800 font-bold text-lg">{{
+                  material.name
+                }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full flex flex-col" v-else>
+        <div class="w-full flex py-5 px-5">
+          <p>Задач пока не добавлено 2</p>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -206,37 +189,22 @@ export default {
     }
   },
   computed: {
-    completedProgress() {
-      const percentage = Math.floor(
-        (this.project.completedTasks / this.project.totalTasks) * 100
-      );
-      return percentage;
-    },
-    getTasks() {
-      return this.$store.getters.getProjectTasks;
-    },
-    getMaterials() {
-      console.log(this.$store.getters.getProjectMaterials);
-      return this.$store.getters.getProjectMaterials;
+    //todo  getter for completed tasks
+    // completedProgress() {
+    //   const percentage = Math.floor(
+    //     (this.getProjectData.tasks.length / this.project.totalTasks) * 100
+    //   );
+    //   return percentage;
+    // },
+    getProjectData() {
+      return this.$store.getters.getProjectData;
     }
   },
   created() {
     this.$loading(true);
-    this.$store.dispatch("GET_PROJECT_TASKS", this.project.id).then(() => {
+    this.$store.dispatch("GET_PROJECT_DATA", this.project.id).then(() => {
       this.$loading(false);
     });
-  },
-
-  watch: {
-    activeScreen(newVal) {
-      if (newVal === "materials") {
-        this.$store
-          .dispatch("GET_PROJECT_MATERIALS", this.project.id)
-          .then(() => {
-            return this.getMaterials;
-          });
-      }
-    }
   }
 };
 </script>

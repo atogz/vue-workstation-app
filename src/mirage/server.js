@@ -1,9 +1,9 @@
 import { Server } from "miragejs";
 const server = new Server();
 let token = null; //check token for every request
-let tasksDb = [
+let projects = [
   {
-    project_id: 1,
+    id: 1,
     tasks: [
       {
         id: 1,
@@ -21,10 +21,40 @@ let tasksDb = [
         deadline: "12.11.2020",
         completed: false
       }
+    ],
+    materials: [
+      {
+        id: 1,
+        name: "Обои винил",
+        basePrice: 410,
+        baseMeasure: "м",
+        count: 14
+      },
+      {
+        id: 2,
+        name: "Лампочка",
+        basePrice: 120,
+        baseMeasure: "шт",
+        count: 15
+      },
+      {
+        id: 3,
+        name: "Обои флюр",
+        basePrice: 560,
+        baseMeasure: "м",
+        count: 25
+      },
+      {
+        id: 4,
+        name: "Потолочный плинтус",
+        basePrice: 120,
+        baseMeasure: "м",
+        count: 12
+      }
     ]
   },
   {
-    project_id: 1,
+    id: 2,
     tasks: [
       {
         id: 3,
@@ -42,10 +72,40 @@ let tasksDb = [
         deadline: "12.11.2020",
         completed: false
       }
+    ],
+    materials: [
+      {
+        id: 1,
+        name: "Обои винил",
+        basePrice: 410,
+        baseMeasure: "м",
+        count: 14
+      },
+      {
+        id: 2,
+        name: "Лампочка",
+        basePrice: 120,
+        baseMeasure: "шт",
+        count: 15
+      },
+      {
+        id: 3,
+        name: "Обои флюр",
+        basePrice: 560,
+        baseMeasure: "м",
+        count: 25
+      },
+      {
+        id: 4,
+        name: "Потолочный плинтус",
+        basePrice: 120,
+        baseMeasure: "м",
+        count: 12
+      }
     ]
   },
   {
-    project_id: 2,
+    id: 3,
     tasks: [
       {
         id: 6,
@@ -63,10 +123,40 @@ let tasksDb = [
         deadline: "12.11.2020",
         completed: false
       }
+    ],
+    materials: [
+      {
+        id: 1,
+        name: "Обои винил",
+        basePrice: 410,
+        baseMeasure: "м",
+        count: 14
+      },
+      {
+        id: 2,
+        name: "Лампочка",
+        basePrice: 120,
+        baseMeasure: "шт",
+        count: 15
+      },
+      {
+        id: 3,
+        name: "Обои флюр",
+        basePrice: 560,
+        baseMeasure: "м",
+        count: 25
+      },
+      {
+        id: 4,
+        name: "Потолочный плинтус",
+        basePrice: 120,
+        baseMeasure: "м",
+        count: 12
+      }
     ]
   },
   {
-    project_id: 3,
+    id: 4,
     tasks: [
       {
         id: 7,
@@ -116,28 +206,40 @@ let tasksDb = [
         deadline: "12.11.2020",
         completed: true
       }
-    ]
-  }
-];
-let materials = [
-  {
-    project_id: 1,
+    ],
     materials: [
       {
         id: 1,
         name: "Обои винил",
         basePrice: 410,
-        baseMeasure: 'м',
+        baseMeasure: "м",
+        count: 14
       },
       {
         id: 2,
+        name: "Лампочка",
+        basePrice: 120,
+        baseMeasure: "шт",
+        count: 15
+      },
+      {
+        id: 3,
+        name: "Обои флюр",
+        basePrice: 560,
+        baseMeasure: "м",
+        count: 25
+      },
+      {
+        id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
-        baseMeasure: 'м',
-      },
+        baseMeasure: "м",
+        count: 12
+      }
     ]
-  },
+  }
 ];
+
 //routes
 server.post("/api/auth/login", (schema, request) => {
   let attrs = JSON.parse(request.requestBody);
@@ -241,30 +343,16 @@ server.get("/api/projects", (schema, request) => {
   }
 });
 
-server.get("/api/tasks", (schema, request) => {
+server.get("/api/project", (schema, request) => {
   if (request.queryParams.token === token && request.queryParams.projectId) {
     const id = parseInt(request.queryParams.projectId);
-    const getProjectTasks = projectId => {
-      return tasksDb.filter(item => item.project_id === projectId);
+    const projectData = projectId => {
+      return projects.find(item => item.id === projectId);
     };
+    console.log("project data ", projectData(id));
     return {
       success: true,
-      tasks: getProjectTasks(id)
-    };
-  }
-});
-
-server.get("/api/materials", (schema, request) => {
-  console.log(request.queryParams);
-  if (request.queryParams.token === token && request.queryParams.projectId) {
-    const id = parseInt(request.queryParams.projectId);
-    console.log("id ", id);
-    const getProjectMaterials = projectId => {
-      return materials.filter(item => item.project_id === projectId);
-    };
-    return {
-      success: true,
-      materials: getProjectMaterials(id)
+      data: projectData(id)
     };
   }
 });
