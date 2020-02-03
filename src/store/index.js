@@ -10,7 +10,8 @@ export default new Vuex.Store({
     user: {},
     token: null,
     currentProjects: [],
-    projectTasks: []
+    projectTasks: [],
+    projectMaterials: []
   },
 
   getters: {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     getProjectTasks: state => {
       return state.projectTasks;
     },
+    getProjectMaterials: state => {
+      return state.projectMaterials;
+    }
   },
   mutations: {
     LOADING_FINISHED(state) {
@@ -44,6 +48,9 @@ export default new Vuex.Store({
     },
     PROJECT_TASKS(state, payload) {
       state.projectTasks = payload.tasks;
+    },
+    PROJECT_MATERIALS(state, payload) {
+      state.projectMaterials = payload.materials;
     }
   },
   actions: {
@@ -79,6 +86,15 @@ export default new Vuex.Store({
           commit("PROJECT_TASKS", response.data);
         });
     },
+    GET_PROJECT_MATERIALS({ commit, state }, projectId) {
+      console.log(projectId);
+      return axios
+        .get("/materials?token=" + state.token + "&projectId=" + projectId)
+        .then(response => {
+          console.log(response);
+          commit("PROJECT_MATERIALS", response.data);
+        });
+    }
   },
 
   modules: {}
