@@ -134,6 +134,7 @@
                 </div>
                 <div class="w-1/5 flex flex-col">
                   <button
+                    v-if="!tasksDeletionPending.includes(index)"
                     @click="
                       (task.completed = !task.completed),
                         changeTaskStatus(task.completed)
@@ -143,11 +144,32 @@
                     изменить статус
                   </button>
                   <button
+                    v-if="task.deletable || getUserData.role === 'admin'"
                     @click="deleteTask(index)"
                     class="w-full mt-5 py-5 px-5 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
                   >
                     удалить
                   </button>
+
+                  <button
+                    @click="requestTaskDeletion(index)"
+                    v-if="
+                      !task.deletable &&
+                        !tasksDeletionPending.includes(index) &&
+                        getUserData.role !== 'admin'
+                    "
+                    class="w-full mt-5 py-5 px-5 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                  >
+                    запросить удаление
+                  </button>
+                  <transition name="slide-fade" mode="out-in">
+                    <div
+                      class="w-full text-center uppercase text-sm text-orange-500"
+                      v-if="tasksDeletionPending.includes(index)"
+                    >
+                      <p>Отправлен запрос на удаление</p>
+                    </div>
+                  </transition>
                 </div>
               </div>
             </div>
@@ -286,7 +308,8 @@ export default {
     return {
       activeScreen: "tasks",
       totalMaterialsCount: 0,
-      totalMaterialsCost: 0
+      totalMaterialsCost: 0,
+      tasksDeletionPending: []
     };
   },
   methods: {
@@ -297,7 +320,8 @@ export default {
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: false
+        completed: false,
+        deletable: true
       };
       let itemTwo = {
         id: 5212,
@@ -305,7 +329,8 @@ export default {
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: false
+        completed: false,
+        deletable: true
       };
       let itemThree = {
         id: 312312,
@@ -313,7 +338,8 @@ export default {
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: false
+        completed: false,
+        deletable: true
       };
 
       let randomPick = Math.floor(Math.random() * 3);
@@ -336,6 +362,9 @@ export default {
     },
     deleteTask(index) {
       return this.getProjectData.tasks.splice(index, 1);
+    },
+    requestTaskDeletion(index) {
+      this.tasksDeletionPending.push(index);
     },
 
     addMaterial() {
@@ -377,11 +406,13 @@ export default {
     }
   },
   computed: {
+    getUserData() {
+      return this.$store.getters.getUser;
+    },
     progress() {
-      const percentage = Math.floor(
+      return Math.floor(
         (this.getCompletedTasks.length / this.getProjectData.tasks.length) * 100
       );
-      return percentage;
     },
     getProjectData() {
       return this.$store.getters.getProjectData;
