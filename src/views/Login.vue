@@ -1,7 +1,10 @@
 <template>
   <main class="container mx-auto flex justify-center items-center h-fullVh">
     <div class="w-full max-w-xs">
-      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @keyup.enter="login()">
+      <form
+        class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        @keyup.enter="login()"
+      >
         <div class="mb-4">
           <label
             class="block text-gray-700 text-sm font-bold mb-2"
@@ -57,6 +60,7 @@ export default {
   },
   methods: {
     async login() {
+      this.$loading(true);
       try {
         await this.$store
           .dispatch("LOGIN", {
@@ -67,6 +71,7 @@ export default {
             this.$router.push("/projects");
           });
       } catch (e) {
+        this.$loading(false);
         this.error = e;
       }
     }

@@ -80,10 +80,17 @@
         <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
           <div class="w-full flex items-center">
             <div class="w-2/3 flex py-5 px-5">
-              <p>Задач: {{ getProjectData.tasks.length }}</p>
+              <p>
+                Задач:
+                <span class="text-lg ml-1 font-bold">{{
+                  getProjectData.tasks.length
+                }}</span>
+              </p>
               <p class="ml-5">
-                Выполнено: {{ getCompletedTasks.length }}
-                <b>({{ progress }}%)</b>
+                Выполнено:
+                <span class="text-lg ml-1 font-bold">
+                  {{ getCompletedTasks.length }} ({{ progress }}%)</span
+                >
               </p>
             </div>
             <div class="w-1/3">
@@ -127,6 +134,7 @@
                 </div>
                 <div class="w-1/5 flex flex-col">
                   <button
+                    v-if="!tasksDeletionPending.includes(task.id)"
                     @click="
                       (task.completed = !task.completed),
                         changeTaskStatus(task.completed)
@@ -136,11 +144,32 @@
                     изменить статус
                   </button>
                   <button
+                    v-if="task.deletable || getUserData.role === 'admin'"
                     @click="deleteTask(index)"
                     class="w-full mt-5 py-5 px-5 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
                   >
                     удалить
                   </button>
+
+                  <button
+                    @click="requestTaskDeletion(task.id)"
+                    v-if="
+                      !task.deletable &&
+                        !tasksDeletionPending.includes(task.id) &&
+                        getUserData.role !== 'admin'
+                    "
+                    class="w-full mt-5 py-5 px-5 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                  >
+                    запросить удаление
+                  </button>
+                  <transition name="slide-fade" mode="out-in">
+                    <div
+                      class="w-full text-center uppercase text-sm text-orange-500"
+                      v-if="tasksDeletionPending.includes(task.id)"
+                    >
+                      <p>Отправлен запрос на удаление</p>
+                    </div>
+                  </transition>
                 </div>
               </div>
             </div>
@@ -231,13 +260,31 @@
                   }}</b>
                   <i> руб.</i>
                 </p>
-                <transition name="fade" mode="out-in" v-if="material.count < 1">
+                <transition name="fade" mode="out-in" v-if="material">
                   <button
+                    v-if="material.deletable || getUserData.role === 'admin'"
                     @click="removeMaterial(index)"
-                    class="py-2 px-2 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                    class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
                   >
                     удалить
                   </button>
+                  <button
+                    v-if="
+                      !material.deletable &&
+                        !materialsDeletionPending.includes(material.id) &&
+                        getUserData.role !== 'admin'
+                    "
+                    @click="requestMaterialDeletion(material.id)"
+                    class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                  >
+                    запросить удаление
+                  </button>
+                  <div
+                    class="w-auto mr-3 text-center uppercase text-sm text-orange-500"
+                    v-if="materialsDeletionPending.includes(material.id)"
+                  >
+                    <p>Отправлен запрос на удаление</p>
+                  </div>
                 </transition>
               </div>
             </div>
@@ -279,7 +326,9 @@ export default {
     return {
       activeScreen: "tasks",
       totalMaterialsCount: 0,
-      totalMaterialsCost: 0
+      totalMaterialsCost: 0,
+      tasksDeletionPending: [],
+      materialsDeletionPending: []
     };
   },
   methods: {
@@ -290,7 +339,8 @@ export default {
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: false
+        completed: false,
+        deletable: true
       };
       let itemTwo = {
         id: 5212,
@@ -298,7 +348,8 @@ export default {
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: false
+        completed: false,
+        deletable: true
       };
       let itemThree = {
         id: 312312,
@@ -306,7 +357,8 @@ export default {
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: false
+        completed: false,
+        deletable: true
       };
 
       let randomPick = Math.floor(Math.random() * 3);
@@ -330,6 +382,9 @@ export default {
     deleteTask(index) {
       return this.getProjectData.tasks.splice(index, 1);
     },
+    requestTaskDeletion(id) {
+      this.tasksDeletionPending.push(id);
+    },
 
     addMaterial() {
       let itemOne = {
@@ -337,14 +392,16 @@ export default {
         name: "Ламинат",
         basePrice: 250,
         baseMeasure: "м2",
-        count: 1
+        count: 1,
+        deletable: true
       };
       let itemTwo = {
         id: 52,
         name: "Краска акриловая",
         basePrice: 250,
         baseMeasure: "бан",
-        count: 1
+        count: 1,
+        deletable: true
       };
 
       let itemThree = {
@@ -352,7 +409,8 @@ export default {
         name: "Цемент, мешок",
         basePrice: 780,
         baseMeasure: "шт",
-        count: 1
+        count: 1,
+        deletable: true
       };
 
       let randomPick = Math.floor(Math.random() * 3);
@@ -367,14 +425,19 @@ export default {
     },
     removeMaterial(index) {
       return this.getProjectData.materials.splice(index, 1);
+    },
+    requestMaterialDeletion(id) {
+      this.materialsDeletionPending.push(id);
     }
   },
   computed: {
+    getUserData() {
+      return this.$store.getters.getUser;
+    },
     progress() {
-      const percentage = Math.floor(
+      return Math.floor(
         (this.getCompletedTasks.length / this.getProjectData.tasks.length) * 100
       );
-      return percentage;
     },
     getProjectData() {
       return this.$store.getters.getProjectData;

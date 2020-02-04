@@ -11,7 +11,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: true
+        completed: true,
+        deletable: false
       },
       {
         id: 2,
@@ -19,7 +20,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "12.11.2020",
-        completed: false
+        completed: false,
+        deletable: false
       }
     ],
     materials: [
@@ -28,28 +30,32 @@ let projects = [
         name: "Обои винил",
         basePrice: 410,
         baseMeasure: "м",
-        count: 14
+        count: 14,
+        deletable: false
       },
       {
         id: 2,
         name: "Лампочка",
         basePrice: 120,
         baseMeasure: "шт",
-        count: 15
+        count: 15,
+        deletable: false
       },
       {
         id: 3,
         name: "Обои флюр",
         basePrice: 560,
         baseMeasure: "м",
-        count: 25
+        count: 25,
+        deletable: false
       },
       {
         id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
         baseMeasure: "м",
-        count: 12
+        count: 12,
+        deletable: false
       }
     ]
   },
@@ -62,7 +68,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: true
+        completed: true,
+        deletable: false
       },
       {
         id: 4,
@@ -70,7 +77,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "12.11.2020",
-        completed: false
+        completed: false,
+        deletable: false
       }
     ],
     materials: [
@@ -79,28 +87,32 @@ let projects = [
         name: "Обои винил",
         basePrice: 410,
         baseMeasure: "м",
-        count: 14
+        count: 14,
+        deletable: false
       },
       {
         id: 2,
         name: "Лампочка",
         basePrice: 120,
         baseMeasure: "шт",
-        count: 15
+        count: 15,
+        deletable: false
       },
       {
         id: 3,
         name: "Обои флюр",
         basePrice: 560,
         baseMeasure: "м",
-        count: 25
+        count: 25,
+        deletable: false
       },
       {
         id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
         baseMeasure: "м",
-        count: 12
+        count: 12,
+        deletable: false
       }
     ]
   },
@@ -113,7 +125,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: true
+        completed: true,
+        deletable: false
       },
       {
         id: 7,
@@ -121,7 +134,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "12.11.2020",
-        completed: false
+        completed: false,
+        deletable: false
       }
     ],
     materials: [
@@ -130,28 +144,32 @@ let projects = [
         name: "Обои винил",
         basePrice: 410,
         baseMeasure: "м",
-        count: 14
+        count: 14,
+        deletable: false
       },
       {
         id: 2,
         name: "Лампочка",
         basePrice: 120,
         baseMeasure: "шт",
-        count: 15
+        count: 15,
+        deletable: false
       },
       {
         id: 3,
         name: "Обои флюр",
         basePrice: 560,
         baseMeasure: "м",
-        count: 25
+        count: 25,
+        deletable: false
       },
       {
         id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
         baseMeasure: "м",
-        count: 12
+        count: 12,
+        deletable: false
       }
     ]
   },
@@ -164,7 +182,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "22.03.2020",
-        completed: false
+        completed: false,
+        deletable: false
       },
       {
         id: 8,
@@ -172,7 +191,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "12.11.2020",
-        completed: false
+        completed: false,
+        deletable: false
       },
       {
         id: 9,
@@ -180,7 +200,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "12.11.2020",
-        completed: true
+        completed: true,
+        deletable: false
       },
       {
         id: 10,
@@ -188,7 +209,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "12.11.2020",
-        completed: true
+        completed: true,
+        deletable: false
       },
       {
         id: 11,
@@ -196,7 +218,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "12.11.2020",
-        completed: true
+        completed: true,
+        deletable: false
       },
       {
         id: 12,
@@ -204,7 +227,8 @@ let projects = [
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat sem at risus molestie, vitae volutpat mauris viverra. Proin maximus cursus est. Donec vulputate turpis sit amet quam aliquet, id ultricies orci tempor. Praesent in libero malesuada, mollis lacus vitae, ornare orci. Fusce ac luctus diam, nec ornare nunc. Fusce a eros consectetur, placerat erat vitae, facilisis ligula. Quisque dignissim, ipsum eget porttitor gravida, risus dolor fermentum enim, ac tempus elit dui non justo. Nulla vestibulum lobortis vehicula. In ullamcorper elementum ante, quis ultricies felis dapibus ut. Aliquam erat volutpat. Quisque in commodo massa. Duis et efficitur velit. Nunc sed ex ultricies, tristique justo et, egestas orci. Morbi molestie ante ut augue tempor hendrerit.",
         deadline: "12.11.2020",
-        completed: true
+        completed: true,
+        deletable: false
       }
     ],
     materials: [
@@ -213,28 +237,32 @@ let projects = [
         name: "Обои винил",
         basePrice: 410,
         baseMeasure: "м",
-        count: 14
+        count: 14,
+        deletable: false
       },
       {
         id: 2,
         name: "Лампочка",
         basePrice: 120,
         baseMeasure: "шт",
-        count: 15
+        count: 15,
+        deletable: false
       },
       {
         id: 3,
         name: "Обои флюр",
         basePrice: 560,
         baseMeasure: "м",
-        count: 25
+        count: 25,
+        deletable: false
       },
       {
         id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
         baseMeasure: "м",
-        count: 12
+        count: 12,
+        deletable: false
       }
     ]
   }

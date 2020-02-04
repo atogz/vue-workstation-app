@@ -10,7 +10,7 @@ export default new Vuex.Store({
     user: {},
     token: null,
     currentProjects: [],
-    projectData: {},
+    projectData: {}
   },
 
   getters: {
@@ -43,10 +43,10 @@ export default new Vuex.Store({
       state.currentProjects = payload.projects;
     },
     PROJECT_DATA(state, payload) {
-      console.log('project_data_commit ',payload);
+      console.log("project_data_commit ", payload);
       state.projectData = payload.data;
       console.log(state.projectData);
-    },
+    }
   },
   actions: {
     APP_LOADED({ commit }) {
@@ -75,13 +75,13 @@ export default new Vuex.Store({
         });
     },
     GET_PROJECT_DATA({ commit, state }, projectId) {
-      console.log('dispatch ', projectId);
+      console.log("dispatch ", projectId);
       return axios
         .get("/project?token=" + state.token + "&projectId=" + projectId)
         .then(response => {
           commit("PROJECT_DATA", response.data);
         });
-    },
+    }
   },
 
   modules: {}
