@@ -80,10 +80,17 @@
         <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
           <div class="w-full flex items-center">
             <div class="w-2/3 flex py-5 px-5">
-              <p>Задач: {{ getProjectData.tasks.length }}</p>
+              <p>
+                Задач:
+                <span class="text-lg ml-1 font-bold">{{
+                  getProjectData.tasks.length
+                }}</span>
+              </p>
               <p class="ml-5">
-                Выполнено: {{ getCompletedTasks.length }}
-                <b>({{ progress }}%)</b>
+                Выполнено:
+                <span class="text-lg ml-1 font-bold">
+                  {{ getCompletedTasks.length }} ({{ progress }}%)</span
+                >
               </p>
             </div>
             <div class="w-1/3">
