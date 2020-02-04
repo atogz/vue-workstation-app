@@ -109,7 +109,7 @@
               v-for="(task, index) in getProjectData.tasks"
               :key="task.id"
             >
-              <div class="w-full flex items-center justify-center">
+              <div class="w-full flex items-center justify-center py-5 px-5">
                 <div class="w-1/5 flex flex-col">
                   <p class="text-xs flex items-center text-gray-600 pb-2">
                     #{{ task.id }}
@@ -228,7 +228,7 @@
           </div>
 
           <div
-            class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
+            class="w-full px-5 py-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
             v-for="(material, index) in getProjectData.materials"
             :key="index"
           >
