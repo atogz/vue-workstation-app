@@ -134,7 +134,7 @@
                 </div>
                 <div class="w-1/5 flex flex-col">
                   <button
-                    v-if="!tasksDeletionPending.includes(index)"
+                    v-if="!tasksDeletionPending.includes(task.id)"
                     @click="
                       (task.completed = !task.completed),
                         changeTaskStatus(task.completed)
@@ -152,10 +152,10 @@
                   </button>
 
                   <button
-                    @click="requestTaskDeletion(index)"
+                    @click="requestTaskDeletion(task.id)"
                     v-if="
                       !task.deletable &&
-                        !tasksDeletionPending.includes(index) &&
+                        !tasksDeletionPending.includes(task.id) &&
                         getUserData.role !== 'admin'
                     "
                     class="w-full mt-5 py-5 px-5 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
@@ -165,7 +165,7 @@
                   <transition name="slide-fade" mode="out-in">
                     <div
                       class="w-full text-center uppercase text-sm text-orange-500"
-                      v-if="tasksDeletionPending.includes(index)"
+                      v-if="tasksDeletionPending.includes(task.id)"
                     >
                       <p>Отправлен запрос на удаление</p>
                     </div>

@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     async login() {
+      this.$loading(true);
       try {
         await this.$store
           .dispatch("LOGIN", {
@@ -70,6 +71,7 @@ export default {
             this.$router.push("/projects");
           });
       } catch (e) {
+        this.$loading(false);
         this.error = e;
       }
     }
