@@ -79,14 +79,14 @@
       <div class="w-full" v-if="activeScreen === 'tasks'">
         <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
           <div class="w-full flex items-center">
-            <div class="w-2/3 flex py-5 px-5">
+            <div class="w-2/3 flex flex-col py-5 px-5">
               <p>
                 Задач:
                 <span class="text-lg ml-1 font-bold">{{
                   getProjectData.tasks.length
                 }}</span>
               </p>
-              <p class="ml-5">
+              <p>
                 Выполнено:
                 <span class="text-lg ml-1 font-bold">
                   {{ getCompletedTasks.length }} ({{ progress }}%)</span
@@ -196,16 +196,25 @@
           v-if="getProjectData.materials.length"
         >
           <div class="w-full flex py-5 px-5 items-center justify-between">
-            <div class="w-2/3">
+            <div class="w-2/3 flex flex-col">
               <p>
-                Материалов: {{ getProjectData.materials.length }} ({{
-                  getMaterialsTotalCount > 0 ? getMaterialsTotalCount : 0
-                }}
-                ед.) на сумму
-                <b>{{
-                  getMaterialsTotalCost > 0 ? getMaterialsTotalCost : 0
-                }}</b>
-                руб.
+                Материалов:
+                <span class="text-lg ml-1 font-bold"
+                  >{{ getProjectData.materials.length }}
+                  <i class="font-normal">
+                    ({{
+                      getMaterialsTotalCount > 0 ? getMaterialsTotalCount : 0
+                    }}
+                    ед.)</i
+                  >
+                </span>
+              </p>
+              <p>
+                Сумма:
+                <span class="text-lg ml-1 font-bold">
+                  {{ getMaterialsTotalCost > 0 ? getMaterialsTotalCost : 0 }}
+                  <i class="font-normal">руб.</i>
+                </span>
               </p>
             </div>
             <div class="w-1/3">
