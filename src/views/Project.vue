@@ -75,7 +75,7 @@
         </li>
       </ul>
     </div>
-    <transition name="fade" mode="out in">
+    <transition name="slide-fade" mode="out-in">
       <div class="w-full" v-if="activeScreen === 'tasks'">
         <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
           <div class="w-full flex items-center">
@@ -189,7 +189,7 @@
       </div>
     </transition>
 
-    <transition name="fade" mode="out in">
+    <transition name="slide-fade" mode="out-in">
       <div class="w-full" v-if="activeScreen === 'materials'">
         <div
           class="w-full flex flex-col"
