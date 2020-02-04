@@ -30,28 +30,32 @@ let projects = [
         name: "Обои винил",
         basePrice: 410,
         baseMeasure: "м",
-        count: 14
+        count: 14,
+        deletable: false
       },
       {
         id: 2,
         name: "Лампочка",
         basePrice: 120,
         baseMeasure: "шт",
-        count: 15
+        count: 15,
+        deletable: false
       },
       {
         id: 3,
         name: "Обои флюр",
         basePrice: 560,
         baseMeasure: "м",
-        count: 25
+        count: 25,
+        deletable: false
       },
       {
         id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
         baseMeasure: "м",
-        count: 12
+        count: 12,
+        deletable: false
       }
     ]
   },
@@ -83,28 +87,32 @@ let projects = [
         name: "Обои винил",
         basePrice: 410,
         baseMeasure: "м",
-        count: 14
+        count: 14,
+        deletable: false
       },
       {
         id: 2,
         name: "Лампочка",
         basePrice: 120,
         baseMeasure: "шт",
-        count: 15
+        count: 15,
+        deletable: false
       },
       {
         id: 3,
         name: "Обои флюр",
         basePrice: 560,
         baseMeasure: "м",
-        count: 25
+        count: 25,
+        deletable: false
       },
       {
         id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
         baseMeasure: "м",
-        count: 12
+        count: 12,
+        deletable: false
       }
     ]
   },
@@ -136,28 +144,32 @@ let projects = [
         name: "Обои винил",
         basePrice: 410,
         baseMeasure: "м",
-        count: 14
+        count: 14,
+        deletable: false
       },
       {
         id: 2,
         name: "Лампочка",
         basePrice: 120,
         baseMeasure: "шт",
-        count: 15
+        count: 15,
+        deletable: false
       },
       {
         id: 3,
         name: "Обои флюр",
         basePrice: 560,
         baseMeasure: "м",
-        count: 25
+        count: 25,
+        deletable: false
       },
       {
         id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
         baseMeasure: "м",
-        count: 12
+        count: 12,
+        deletable: false
       }
     ]
   },
@@ -225,28 +237,32 @@ let projects = [
         name: "Обои винил",
         basePrice: 410,
         baseMeasure: "м",
-        count: 14
+        count: 14,
+        deletable: false
       },
       {
         id: 2,
         name: "Лампочка",
         basePrice: 120,
         baseMeasure: "шт",
-        count: 15
+        count: 15,
+        deletable: false
       },
       {
         id: 3,
         name: "Обои флюр",
         basePrice: 560,
         baseMeasure: "м",
-        count: 25
+        count: 25,
+        deletable: false
       },
       {
         id: 4,
         name: "Потолочный плинтус",
         basePrice: 120,
         baseMeasure: "м",
-        count: 12
+        count: 12,
+        deletable: false
       }
     ]
   }

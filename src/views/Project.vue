@@ -260,13 +260,31 @@
                   }}</b>
                   <i> руб.</i>
                 </p>
-                <transition name="fade" mode="out-in" v-if="material.count < 1">
+                <transition name="fade" mode="out-in" v-if="material">
                   <button
+                    v-if="material.deletable || getUserData.role === 'admin'"
                     @click="removeMaterial(index)"
-                    class="py-2 px-2 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                    class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
                   >
                     удалить
                   </button>
+                  <button
+                    v-if="
+                      !material.deletable &&
+                        !materialsDeletionPending.includes(material.id) &&
+                        getUserData.role !== 'admin'
+                    "
+                    @click="requestMaterialDeletion(material.id)"
+                    class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                  >
+                    запросить удаление
+                  </button>
+                  <div
+                    class="w-auto mr-3 text-center uppercase text-sm text-orange-500"
+                    v-if="materialsDeletionPending.includes(material.id)"
+                  >
+                    <p>Отправлен запрос на удаление</p>
+                  </div>
                 </transition>
               </div>
             </div>
@@ -309,7 +327,8 @@ export default {
       activeScreen: "tasks",
       totalMaterialsCount: 0,
       totalMaterialsCost: 0,
-      tasksDeletionPending: []
+      tasksDeletionPending: [],
+      materialsDeletionPending: []
     };
   },
   methods: {
@@ -363,8 +382,8 @@ export default {
     deleteTask(index) {
       return this.getProjectData.tasks.splice(index, 1);
     },
-    requestTaskDeletion(index) {
-      this.tasksDeletionPending.push(index);
+    requestTaskDeletion(id) {
+      this.tasksDeletionPending.push(id);
     },
 
     addMaterial() {
@@ -373,14 +392,16 @@ export default {
         name: "Ламинат",
         basePrice: 250,
         baseMeasure: "м2",
-        count: 1
+        count: 1,
+        deletable: true
       };
       let itemTwo = {
         id: 52,
         name: "Краска акриловая",
         basePrice: 250,
         baseMeasure: "бан",
-        count: 1
+        count: 1,
+        deletable: true
       };
 
       let itemThree = {
@@ -388,7 +409,8 @@ export default {
         name: "Цемент, мешок",
         basePrice: 780,
         baseMeasure: "шт",
-        count: 1
+        count: 1,
+        deletable: true
       };
 
       let randomPick = Math.floor(Math.random() * 3);
@@ -403,6 +425,9 @@ export default {
     },
     removeMaterial(index) {
       return this.getProjectData.materials.splice(index, 1);
+    },
+    requestMaterialDeletion(id) {
+      this.materialsDeletionPending.push(id);
     }
   },
   computed: {
