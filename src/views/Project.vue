@@ -198,7 +198,7 @@
           <div class="w-full flex py-5 px-5 items-center justify-between">
             <div class="w-2/3 flex flex-col">
               <p>
-                Материалов:
+                Позиций закуплено:
                 <span class="text-lg ml-1 font-bold"
                   >{{ getProjectData.materials.length }}
                   <i class="font-normal">
@@ -313,6 +313,129 @@
         </div>
       </div>
     </transition>
+    <transition name="slide-fade" mode="out-in">
+      <div class="w-full" v-if="activeScreen === 'estimate'">
+        <div class="w-full flex flex-col" v-if="getProjectData.jobs.length">
+          <div class="w-full flex py-5 px-5 items-center justify-between">
+            <div class="w-2/3 flex flex-col">
+              <p>
+                Количество работ:
+                <span class="text-lg ml-1 font-bold"
+                  >{{ getProjectData.jobs.length }}
+                </span>
+              </p>
+              <p>
+                Материалов затрачено (ед.):
+                <span class="text-lg ml-1 font-bold">
+                  {{
+                    getJobsTotalCount > 0 ? getJobsTotalCount : 0
+                  }}</span>
+              </p>
+
+              <p>
+                Сумма:
+                <span class="text-lg ml-1 font-bold">
+                  {{ getJobsTotalCost > 0 ? getJobsTotalCost : 0 }}
+                  <i class="font-normal">руб.</i>
+                </span>
+              </p>
+            </div>
+            <div class="w-1/3">
+              <button
+                @click="addMaterial()"
+                class="float-right py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+              >
+                добавить материал
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
+            v-for="(material, index) in getProjectData.jobs"
+            :key="index"
+          >
+            <div class="w-full flex items-center justify-center">
+              <div class="w-1/5 flex flex-col">
+                <p class="text-xs flex items-center text-gray-600 pb-2">
+                  #{{ material.id }}
+                </p>
+              </div>
+              <div class="w-1/5 flex">
+                <p class="ml-3 text-gray-700 text-lg">
+                  {{ material.name }}
+                </p>
+              </div>
+              <div class="w-1/5 flex items-center justify-center">
+                <span
+                  v-if="material.count > 0"
+                  class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
+                  @click="material.count--"
+                  >-</span
+                >
+                <p class="ml-3 text-gray-800 text-lg">
+                  <b>{{ material.count > 0 ? material.count : 0 }}</b>
+                  <i> {{ material.baseMeasure }}.</i>
+                </p>
+                <span
+                  class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
+                  @click="material.count++"
+                  >+</span
+                >
+              </div>
+              <div class="w-2/5 flex items-center">
+                <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
+                  <b>{{
+                    material.basePrice * material.count > 0
+                      ? material.basePrice * material.count
+                      : 0
+                  }}</b>
+                  <i> руб.</i>
+                </p>
+                <transition name="fade" mode="out-in" v-if="material">
+                  <button
+                    v-if="material.deletable || getUserData.role === 'admin'"
+                    @click="removeMaterial(index)"
+                    class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                  >
+                    удалить
+                  </button>
+                  <button
+                    v-if="
+                      !material.deletable &&
+                        !materialsDeletionPending.includes(material.id) &&
+                        getUserData.role !== 'admin'
+                    "
+                    @click="requestMaterialDeletion(material.id)"
+                    class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                  >
+                    запросить удаление
+                  </button>
+                  <div
+                    class="w-auto mr-3 text-center uppercase text-sm text-orange-500"
+                    v-if="materialsDeletionPending.includes(material.id)"
+                  >
+                    <p>Отправлен запрос на удаление</p>
+                  </div>
+                </transition>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex flex-col" v-else>
+          <div class="w-full flex py-5 px-5 items-center">
+            <p>Материалов пока не добавлено</p>
+            <button
+              @click="addMaterial()"
+              class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+            >
+              добавить материал
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
   </main>
 </template>
 
@@ -337,7 +460,9 @@ export default {
       totalMaterialsCount: 0,
       totalMaterialsCost: 0,
       tasksDeletionPending: [],
-      materialsDeletionPending: []
+      materialsDeletionPending: [],
+      totalJobsCount: 0,
+      totalJobsCost: 0
     };
   },
   methods: {
@@ -465,6 +590,18 @@ export default {
     getMaterialsTotalCost() {
       const materials = this.getProjectData.materials;
       return materials.reduce((total, currentValue) => {
+        return total + currentValue.basePrice * currentValue.count;
+      }, this.totalMaterialsCost);
+    },
+    getJobsTotalCount() {
+      const jobs = this.getProjectData.jobs;
+      return jobs.reduce((total, currentValue) => {
+        return total + currentValue.count;
+      }, this.totalMaterialsCount);
+    },
+    getJobsTotalCost() {
+      const jobs = this.getProjectData.jobs;
+      return jobs.reduce((total, currentValue) => {
         return total + currentValue.basePrice * currentValue.count;
       }, this.totalMaterialsCost);
     }
