@@ -344,20 +344,20 @@
                 <span class="text-xs text-gray-500 uppercase"
                   >ссылка на смету</span
                 >
-                <span> {{ googleDocsLink }}</span>
+                <span class="select-all"> {{ googleDocsLink }}</span>
               </div>
             </transition>
 
             <div class="w-1/3 flex justify-end">
               <button
                 @click="addJob()"
-                class=" py-2 px-2 border-2 border-teal-400 bg-teal-400 text-white rounded flex items-center justify-center hover:bg-teal-600 "
+                class=" py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
               >
                 добавить работу
               </button>
               <button
                 @click="uploadToGoogle()"
-                class="py-2 ml-5 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+                class="py-2 ml-5 px-2 border-2 border-orange-400 bg-orange-400 text-white rounded flex items-center justify-center hover:bg-orange-600 "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
