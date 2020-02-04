@@ -324,13 +324,12 @@
                   >{{ getProjectData.jobs.length }}
                 </span>
               </p>
-              <p>
-                Материалов затрачено (ед.):
-                <span class="text-lg ml-1 font-bold">
-                  {{
-                    getJobsTotalCount > 0 ? getJobsTotalCount : 0
-                  }}</span>
-              </p>
+<!--              <p>-->
+<!--                Материалов затрачено (ед.):-->
+<!--                <span class="text-lg ml-1 font-bold">-->
+<!--                  {{ getJobsTotalCount > 0 ? getJobsTotalCount : 0 }}</span-->
+<!--                >-->
+<!--              </p>-->
 
               <p>
                 Сумма:
@@ -342,78 +341,78 @@
             </div>
             <div class="w-1/3">
               <button
-                @click="addMaterial()"
+                @click="addJob()"
                 class="float-right py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
               >
-                добавить материал
+                добавить работу
               </button>
             </div>
           </div>
 
           <div
             class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
-            v-for="(material, index) in getProjectData.jobs"
+            v-for="(job, index) in getProjectData.jobs"
             :key="index"
           >
             <div class="w-full flex items-center justify-center">
               <div class="w-1/5 flex flex-col">
                 <p class="text-xs flex items-center text-gray-600 pb-2">
-                  #{{ material.id }}
+                  #{{ job.id }}
                 </p>
               </div>
               <div class="w-1/5 flex">
                 <p class="ml-3 text-gray-700 text-lg">
-                  {{ material.name }}
+                  {{ job.name }}
                 </p>
               </div>
               <div class="w-1/5 flex items-center justify-center">
                 <span
-                  v-if="material.count > 0"
+                  v-if="job.count > 0"
                   class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
-                  @click="material.count--"
+                  @click="job.count--"
                   >-</span
                 >
                 <p class="ml-3 text-gray-800 text-lg">
-                  <b>{{ material.count > 0 ? material.count : 0 }}</b>
-                  <i> {{ material.baseMeasure }}.</i>
+                  <b>{{ job.count > 0 ? job.count : 0 }}</b>
+                  <i> {{ job.baseMeasure }}.</i>
                 </p>
                 <span
                   class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
-                  @click="material.count++"
+                  @click="job.count++"
                   >+</span
                 >
               </div>
               <div class="w-2/5 flex items-center">
                 <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
                   <b>{{
-                    material.basePrice * material.count > 0
-                      ? material.basePrice * material.count
+                    job.basePrice * job.count > 0
+                      ? job.basePrice * job.count
                       : 0
                   }}</b>
                   <i> руб.</i>
                 </p>
-                <transition name="fade" mode="out-in" v-if="material">
+                <transition name="fade" mode="out-in" v-if="job">
                   <button
-                    v-if="material.deletable || getUserData.role === 'admin'"
-                    @click="removeMaterial(index)"
+                    v-if="job.deletable || getUserData.role === 'admin'"
+                    @click="removeJob(index)"
                     class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
                   >
                     удалить
                   </button>
                   <button
                     v-if="
-                      !material.deletable &&
-                        !materialsDeletionPending.includes(material.id) &&
+                      !job.deletable &&
+                        !jobsDeletionPending.includes(job.id) &&
                         getUserData.role !== 'admin'
                     "
-                    @click="requestMaterialDeletion(material.id)"
+                    @click="requestJobDeletion(job.id)"
                     class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
                   >
                     запросить удаление
                   </button>
                   <div
                     class="w-auto mr-3 text-center uppercase text-sm text-orange-500"
-                    v-if="materialsDeletionPending.includes(material.id)"
+                    v-if="jobsDeletionPending.includes(job.id)"
                   >
                     <p>Отправлен запрос на удаление</p>
                   </div>
@@ -425,12 +424,12 @@
 
         <div class="w-full flex flex-col" v-else>
           <div class="w-full flex py-5 px-5 items-center">
-            <p>Материалов пока не добавлено</p>
+            <p>Смета пока не заполнялась</p>
             <button
-              @click="addMaterial()"
+              @click="addJob()"
               class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
             >
-              добавить материал
+              добавить работу
             </button>
           </div>
         </div>
@@ -462,7 +461,8 @@ export default {
       tasksDeletionPending: [],
       materialsDeletionPending: [],
       totalJobsCount: 0,
-      totalJobsCost: 0
+      totalJobsCost: 0,
+      jobsDeletionPending: []
     };
   },
   methods: {
@@ -562,6 +562,50 @@ export default {
     },
     requestMaterialDeletion(id) {
       this.materialsDeletionPending.push(id);
+    },
+
+    addJob() {
+      let itemOne = {
+        id: 51,
+        name: "Бурение скважины",
+        basePrice: 2250,
+        baseMeasure: "м2",
+        count: 1,
+        deletable: true
+      };
+      let itemTwo = {
+        id: 52,
+        name: "Работы с электропроводкой",
+        basePrice: 600,
+        baseMeasure: "м",
+        count: 1,
+        deletable: true
+      };
+
+      let itemThree = {
+        id: 53,
+        name: "Укладка фундамента",
+        basePrice: 1100,
+        baseMeasure: "м2",
+        count: 1,
+        deletable: true
+      };
+
+      let randomPick = Math.floor(Math.random() * 3);
+
+      if (randomPick === 0) {
+        return this.getProjectData.jobs.unshift(itemOne);
+      } else if (randomPick === 1) {
+        return this.getProjectData.jobs.unshift(itemTwo);
+      } else {
+        return this.getProjectData.jobs.unshift(itemThree);
+      }
+    },
+    removeJob(index) {
+      return this.getProjectData.jobs.splice(index, 1);
+    },
+    requestJobDeletion(id) {
+      this.jobsDeletionPending.push(id);
     }
   },
   computed: {
