@@ -539,8 +539,8 @@ server.post("/api/auth/login", (schema, request) => {
       token: token,
       user: {
         id: 2,
-        name: "ivan",
-        surname: "ivanov",
+        name: "Иван",
+        surname: "Иванов",
         role: "manager"
       }
     };
@@ -554,8 +554,8 @@ server.post("/api/auth/login", (schema, request) => {
       token: token,
       user: {
         id: 1,
-        name: "nikolay",
-        surname: "trofimov",
+        name: "Николай",
+        surname: "Трофимов",
         role: "admin"
       }
     };

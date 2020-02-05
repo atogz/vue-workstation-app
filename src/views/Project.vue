@@ -21,7 +21,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'tasks'
               }"
-              class="text-center block border border-white rounded hover:border-indigo-200 hover:bg-indigo-200 py-2 px-4 text-indigo-600 cursor-pointer"
+              class="text-center block bg-indigo-200 rounded text-indigo-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Задачи</a
             >
           </li>
@@ -32,7 +32,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'materials'
               }"
-              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              class="text-center block bg-indigo-200 rounded text-indigo-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Материалы</a
             >
           </li>
@@ -43,7 +43,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'estimate'
               }"
-              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              class="text-center block bg-indigo-200 rounded text-indigo-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Смета</a
             >
           </li>
@@ -54,7 +54,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold':
                   activeScreen === 'brigades'
               }"
-              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              class="text-center block bg-indigo-200 rounded text-indigo-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Бригада</a
             >
           </li>
@@ -64,8 +64,8 @@
     <transition name="slide-fade" mode="out-in">
       <div class="w-full" v-if="activeScreen === 'tasks'">
         <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
-          <div class="w-full flex items-center">
-            <div class="w-2/3 flex flex-col py-5 px-5">
+          <div class="w-full flex items-center py-5 px-5">
+            <div class="w-2/3 flex flex-col ">
               <p>
                 Задач:
                 <span class="text-lg ml-1 font-bold">{{
@@ -79,10 +79,10 @@
                 >
               </p>
             </div>
-            <div class="w-1/3">
+            <div class="w-1/3 flex justify-end">
               <button
                 @click="addTask()"
-                class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+                class="py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex hover:bg-green-600 "
               >
                 добавить задачу
               </button>
