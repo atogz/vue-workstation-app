@@ -585,7 +585,6 @@ export default {
       }
     },
     changeTaskStatus(status) {
-      console.log("status ", status);
       if (status) {
         this.project.completedTasks++;
       } else {
