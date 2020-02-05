@@ -2,13 +2,13 @@
   <main>
     <app-header />
     <div class="flex w-full py-5 px-5 items-center">
-      <div class="w-1/3 flex max-w-full border-2 rounded">
-        <div class="w-full flex items-center justify-around">
+      <div class="w-1/3 flex max-w-full rounded">
+        <div class="w-full flex items-center">
           <div class="w-1/3">
-            <img :src="project.imageLink" alt="" />
+            <img class="rounded" :src="project.imageLink" alt="" />
           </div>
-          <div class="w-2/3 text-center uppercase">
-            <h3 class="text-xl">{{ project.name }}</h3>
+          <div class="w-2/3 text-left ml-5 uppercase">
+            <h3 class="text-xl font-bold">{{ project.name }}</h3>
           </div>
         </div>
       </div>
@@ -96,8 +96,8 @@
                 v-for="(task, index) in getProjectData.tasks"
                 :key="task.id"
               >
-                <div class="w-full flex items-center justify-center py-5 px-5">
-                  <div class="w-1/5 flex flex-col">
+                <div class="w-full flex items-center justify-between py-5 px-5">
+                  <div class="w-auto flex flex-col">
                     <p class="text-xs flex items-center text-gray-600 pb-2">
                       #{{ task.id }}
                       <span class="ml-3 text-gray-800 font-bold text-lg">{{
@@ -105,7 +105,7 @@
                       }}</span>
                     </p>
                     <p
-                      class="w-full flex justify-center h-12 items-center py-2 px-2 text-center text-sm uppercase bg-red-300"
+                      class="w-full flex justify-center h-12 items-center py-2 px-2 text-center text-sm rounded uppercase bg-red-300"
                       :class="{ 'bg-green-300': task.completed }"
                     >
                       {{ task.completed ? "Выполнена" : "Не выполнена" }}
@@ -115,11 +115,11 @@
                     </p>
                   </div>
                   <div
-                    class="w-3/5 ml-10 text-sm text-gray-600 px-5 text-justify"
+                    class="w-4/6 text-sm text-gray-600 px-5 text-justify"
                   >
-                    <p>{{ task.description }}</p>
+                    <p class="mr-auto">{{ task.description }}</p>
                   </div>
-                  <div class="w-1/5 flex flex-col">
+                  <div class="w-1/6 flex flex-col">
                     <button
                       v-if="!tasksDeletionPending.includes(task.id)"
                       @click="
