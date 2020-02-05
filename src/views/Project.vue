@@ -21,7 +21,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'tasks'
               }"
-              class="text-center block bg-indigo-200 rounded text-indigo-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
+              class="text-center block bg-gray-200 rounded text-gray-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Задачи</a
             >
           </li>
@@ -32,7 +32,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'materials'
               }"
-              class="text-center block bg-indigo-200 rounded text-indigo-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
+              class="text-center block bg-gray-200 rounded text-gray-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Материалы</a
             >
           </li>
@@ -43,7 +43,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'estimate'
               }"
-              class="text-center block bg-indigo-200 rounded text-indigo-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
+              class="text-center block bg-gray-200 rounded text-gray-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Смета</a
             >
           </li>
@@ -54,7 +54,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold':
                   activeScreen === 'brigades'
               }"
-              class="text-center block bg-indigo-200 rounded text-indigo-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
+              class="text-center block bg-gray-200 rounded text-gray-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Бригада</a
             >
           </li>
