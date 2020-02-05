@@ -91,6 +91,47 @@ let projects = [
         count: 45,
         deletable: false
       }
+    ],
+    brigades: [
+      {
+        id: 1,
+        employees: [
+          {
+            id: 1,
+            name: 'Иван Иванов'
+          },
+          {
+            id: 2,
+            name: 'Петр Петров'
+          }
+        ]
+      },
+      {
+        id: 2,
+        employees: [
+          {
+            id: 3,
+            name: 'Иван Франко'
+          },
+          {
+            id: 4,
+            name: 'Петр Первый'
+          }
+        ]
+      },
+      {
+        id: 3,
+        employees: [
+          {
+            id: 3,
+            name: 'Иван Франко'
+          },
+          {
+            id: 4,
+            name: 'Петр Первый'
+          }
+        ]
+      }
     ]
   },
   {
@@ -182,6 +223,34 @@ let projects = [
         count: 45,
         deletable: false
       }
+    ],
+    brigades: [
+      {
+        id: 1,
+        employees: [
+          {
+            id: 1,
+            name: 'Иван Иванов'
+          },
+          {
+            id: 2,
+            name: 'Петр Петров'
+          }
+        ]
+      },
+      {
+        id: 2,
+        employees: [
+          {
+            id: 3,
+            name: 'Иван Франко'
+          },
+          {
+            id: 4,
+            name: 'Петр Первый'
+          }
+        ]
+      }
     ]
   },
   {
@@ -272,6 +341,34 @@ let projects = [
         baseMeasure: "м",
         count: 45,
         deletable: false
+      }
+    ],
+    brigades: [
+      {
+        id: 1,
+        employees: [
+          {
+            id: 1,
+            name: 'Иван Иванов'
+          },
+          {
+            id: 2,
+            name: 'Петр Петров'
+          }
+        ]
+      },
+      {
+        id: 2,
+        employees: [
+          {
+            id: 3,
+            name: 'Иван Франко'
+          },
+          {
+            id: 4,
+            name: 'Петр Первый'
+          }
+        ]
       }
     ]
   },
@@ -399,6 +496,34 @@ let projects = [
         baseMeasure: "м",
         count: 45,
         deletable: false
+      }
+    ],
+    brigades: [
+      {
+        id: 1,
+        employees: [
+          {
+            id: 1,
+            name: 'Иван Иванов'
+          },
+          {
+            id: 2,
+            name: 'Петр Петров'
+          }
+        ]
+      },
+      {
+        id: 2,
+        employees: [
+          {
+            id: 3,
+            name: 'Иван Франко'
+          },
+          {
+            id: 4,
+            name: 'Петр Первый'
+          }
+        ]
       }
     ]
   }

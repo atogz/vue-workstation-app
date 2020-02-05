@@ -20,8 +20,7 @@
               'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
                 activeScreen === 'tasks'
             }"
-            class="text-center block border border-white rounded hover:border-indigo-200 hover:bg-indigo-200 py-2 px-4 text-indigo-600"
-            href="#"
+            class="text-center block border border-white rounded hover:border-indigo-200 hover:bg-indigo-200 py-2 px-4 text-indigo-600 cursor-pointer"
             >Задачи</a
           >
         </li>
@@ -32,8 +31,7 @@
               'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
                 activeScreen === 'materials'
             }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4"
-            href="#"
+            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
             >Материалы</a
           >
         </li>
@@ -44,20 +42,18 @@
               'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
                 activeScreen === 'estimate'
             }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4"
-            href="#"
+            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
             >Смета</a
           >
         </li>
         <li class="flex-1 mr-2">
           <a
-            @click="activeScreen = 'brigade'"
+            @click="activeScreen = 'brigades'"
             :class="{
               'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
-                activeScreen === 'brigade'
+                activeScreen === 'brigades'
             }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4"
-            href="#"
+            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
             >Бригада</a
           >
         </li>
@@ -68,8 +64,7 @@
               'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
                 activeScreen === 'notes'
             }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4"
-            href="#"
+            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
             >Заметки</a
           >
         </li>
@@ -105,7 +100,7 @@
 
           <div class="w-full mt-5 border-t-2 py-5 px-5">
             <div
-              class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
+              class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow cursor-pointer border-2 border-gray-200 flex mt-5"
               v-for="(task, index) in getProjectData.tasks"
               :key="task.id"
             >
@@ -226,75 +221,76 @@
               </button>
             </div>
           </div>
-
-          <div
-            class="w-full px-5 py-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
-            v-for="(material, index) in getProjectData.materials"
-            :key="index"
-          >
-            <div class="w-full flex items-center justify-center">
-              <div class="w-1/5 flex flex-col">
-                <p class="text-xs flex items-center text-gray-600 pb-2">
-                  #{{ material.id }}
-                </p>
-              </div>
-              <div class="w-1/5 flex">
-                <p class="ml-3 text-gray-700 text-lg">
-                  {{ material.name }}
-                </p>
-              </div>
-              <div class="w-1/5 flex items-center justify-center">
-                <span
-                  v-if="material.count > 0"
-                  class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
-                  @click="material.count--"
-                  >-</span
-                >
-                <p class="ml-3 text-gray-800 text-lg">
-                  <b>{{ material.count > 0 ? material.count : 0 }}</b>
-                  <i> {{ material.baseMeasure }}.</i>
-                </p>
-                <span
-                  class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
-                  @click="material.count++"
-                  >+</span
-                >
-              </div>
-              <div class="w-2/5 flex items-center">
-                <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
-                  <b>{{
-                    material.basePrice * material.count > 0
-                      ? material.basePrice * material.count
-                      : 0
-                  }}</b>
-                  <i> руб.</i>
-                </p>
-                <transition name="fade" mode="out-in" v-if="material">
-                  <button
-                    v-if="material.deletable || getUserData.role === 'admin'"
-                    @click="removeMaterial(index)"
-                    class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+          <div class="w-full flex flex-col px-5 py-5">
+            <div
+              class="w-full px-5 py-5 mt-5 rounded overflow-hidden shadow cursor-pointer border-2 border-gray-200 flex mt-5"
+              v-for="(material, index) in getProjectData.materials"
+              :key="index"
+            >
+              <div class="w-full flex items-center justify-center">
+                <div class="w-1/5 flex flex-col">
+                  <p class="text-xs flex items-center text-gray-600 pb-2">
+                    #{{ material.id }}
+                  </p>
+                </div>
+                <div class="w-1/5 flex">
+                  <p class="ml-3 text-gray-700 text-lg">
+                    {{ material.name }}
+                  </p>
+                </div>
+                <div class="w-1/5 flex items-center justify-center">
+                  <span
+                    v-if="material.count > 0"
+                    class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
+                    @click="material.count--"
+                    >-</span
                   >
-                    удалить
-                  </button>
-                  <button
-                    v-if="
-                      !material.deletable &&
-                        !materialsDeletionPending.includes(material.id) &&
-                        getUserData.role !== 'admin'
-                    "
-                    @click="requestMaterialDeletion(material.id)"
-                    class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                  <p class="ml-3 text-gray-800 text-lg">
+                    <b>{{ material.count > 0 ? material.count : 0 }}</b>
+                    <i> {{ material.baseMeasure }}.</i>
+                  </p>
+                  <span
+                    class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
+                    @click="material.count++"
+                    >+</span
                   >
-                    запросить удаление
-                  </button>
-                  <div
-                    class="w-auto mr-3 text-center uppercase text-sm text-orange-500"
-                    v-if="materialsDeletionPending.includes(material.id)"
-                  >
-                    <p>Отправлен запрос на удаление</p>
-                  </div>
-                </transition>
+                </div>
+                <div class="w-2/5 flex items-center">
+                  <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
+                    <b>{{
+                      material.basePrice * material.count > 0
+                        ? material.basePrice * material.count
+                        : 0
+                    }}</b>
+                    <i> руб.</i>
+                  </p>
+                  <transition name="fade" mode="out-in" v-if="material">
+                    <button
+                      v-if="material.deletable || getUserData.role === 'admin'"
+                      @click="removeMaterial(index)"
+                      class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                    >
+                      удалить
+                    </button>
+                    <button
+                      v-if="
+                        !material.deletable &&
+                          !materialsDeletionPending.includes(material.id) &&
+                          getUserData.role !== 'admin'
+                      "
+                      @click="requestMaterialDeletion(material.id)"
+                      class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                    >
+                      запросить удаление
+                    </button>
+                    <div
+                      class="w-auto mr-3 text-center uppercase text-sm text-orange-500"
+                      v-if="materialsDeletionPending.includes(material.id)"
+                    >
+                      <p>Отправлен запрос на удаление</p>
+                    </div>
+                  </transition>
+                </div>
               </div>
             </div>
           </div>
@@ -386,74 +382,76 @@
             </div>
           </div>
 
-          <div
-            class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow-lg cursor-pointer border-2 border-gray-200 flex mt-5"
-            v-for="(job, index) in getProjectData.jobs"
-            :key="index"
-          >
-            <div class="w-full flex items-center justify-center">
-              <div class="w-1/5 flex flex-col">
-                <p class="text-xs flex items-center text-gray-600 pb-2">
-                  #{{ job.id }}
-                </p>
-              </div>
-              <div class="w-1/5 flex">
-                <p class="ml-3 text-gray-700 text-lg">
-                  {{ job.name }}
-                </p>
-              </div>
-              <div class="w-1/5 flex items-center justify-center">
-                <span
-                  v-if="job.count > 0"
-                  class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
-                  @click="job.count--"
-                  >-</span
-                >
-                <p class="ml-3 text-gray-800 text-lg">
-                  <b>{{ job.count > 0 ? job.count : 0 }}</b>
-                  <i> {{ job.baseMeasure }}.</i>
-                </p>
-                <span
-                  class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
-                  @click="job.count++"
-                  >+</span
-                >
-              </div>
-              <div class="w-2/5 flex items-center">
-                <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
-                  <b>{{
-                    job.basePrice * job.count > 0
-                      ? job.basePrice * job.count
-                      : 0
-                  }}</b>
-                  <i> руб.</i>
-                </p>
-                <transition name="fade" mode="out-in" v-if="job">
-                  <button
-                    v-if="job.deletable || getUserData.role === 'admin'"
-                    @click="removeJob(index)"
-                    class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+          <div class="w-full flex-flex-col px-5 py-5">
+            <div
+              class="w-full py-5 px-5 mt-5 rounded overflow-hidden shadow cursor-pointer border-2 border-gray-200 flex mt-5"
+              v-for="(job, index) in getProjectData.jobs"
+              :key="index"
+            >
+              <div class="w-full flex items-center justify-center">
+                <div class="w-1/5 flex flex-col">
+                  <p class="text-xs flex items-center text-gray-600 pb-2">
+                    #{{ job.id }}
+                  </p>
+                </div>
+                <div class="w-1/5 flex">
+                  <p class="ml-3 text-gray-700 text-lg">
+                    {{ job.name }}
+                  </p>
+                </div>
+                <div class="w-1/5 flex items-center justify-center">
+                  <span
+                    v-if="job.count > 0"
+                    class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500"
+                    @click="job.count--"
+                    >-</span
                   >
-                    удалить
-                  </button>
-                  <button
-                    v-if="
-                      !job.deletable &&
-                        !jobsDeletionPending.includes(job.id) &&
-                        getUserData.role !== 'admin'
-                    "
-                    @click="requestJobDeletion(job.id)"
-                    class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                  <p class="ml-3 text-gray-800 text-lg">
+                    <b>{{ job.count > 0 ? job.count : 0 }}</b>
+                    <i> {{ job.baseMeasure }}.</i>
+                  </p>
+                  <span
+                    class="border-2 border-gray-400 rounded px-2 py-2 text-lg text-gray-500 ml-2"
+                    @click="job.count++"
+                    >+</span
                   >
-                    запросить удаление
-                  </button>
-                  <div
-                    class="w-auto mr-3 text-center uppercase text-sm text-orange-500"
-                    v-if="jobsDeletionPending.includes(job.id)"
-                  >
-                    <p>Отправлен запрос на удаление</p>
-                  </div>
-                </transition>
+                </div>
+                <div class="w-2/5 flex items-center">
+                  <p class="ml-3 text-gray-800 text-lg ml-auto mr-20">
+                    <b>{{
+                      job.basePrice * job.count > 0
+                        ? job.basePrice * job.count
+                        : 0
+                    }}</b>
+                    <i> руб.</i>
+                  </p>
+                  <transition name="fade" mode="out-in" v-if="job">
+                    <button
+                      v-if="job.deletable || getUserData.role === 'admin'"
+                      @click="removeJob(index)"
+                      class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                    >
+                      удалить
+                    </button>
+                    <button
+                      v-if="
+                        !job.deletable &&
+                          !jobsDeletionPending.includes(job.id) &&
+                          getUserData.role !== 'admin'
+                      "
+                      @click="requestJobDeletion(job.id)"
+                      class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                    >
+                      запросить удаление
+                    </button>
+                    <div
+                      class="w-auto mr-3 text-center uppercase text-sm text-orange-500"
+                      v-if="jobsDeletionPending.includes(job.id)"
+                    >
+                      <p>Отправлен запрос на удаление</p>
+                    </div>
+                  </transition>
+                </div>
               </div>
             </div>
           </div>
@@ -468,6 +466,40 @@
             >
               добавить работу
             </button>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="slide-fade" mode="out-in">
+      <div class="w-full px-5 py-5" v-if="activeScreen === 'brigades'">
+        <div
+          class="w-full flex"
+          :class="{ 'flex-wrap': getProjectData.brigades.length > 2 }"
+        >
+          <div
+            class="w-1/2 flex flex-col pr-5 mt-5"
+            v-for="brigade in getProjectData.brigades"
+            :key="brigade.id"
+          >
+            <div class="w-full flex justify-between items-baseline">
+              <span class="text-sm text-blue-600 uppercase"
+                >Бригада {{ brigade.id }}</span
+              >
+              <button
+                @click="addEmployee(brigade.id)"
+                class="py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+              >
+                добавить сотрудника
+              </button>
+            </div>
+
+            <div
+              class="w-full px-5 py-5 rounded overflow-hidden shadow border-2 border-gray-200 mt-2"
+              v-for="employee in brigade.employees"
+              :key="employee.id"
+            >
+              {{ employee.id }} {{ employee.name }}
+            </div>
           </div>
         </div>
       </div>
@@ -655,8 +687,20 @@ export default {
         }, 500);
       };
       fakeUpload();
+    },
+
+    addEmployee(id) {
+      const newEmployee = {
+        id: 6,
+        name: "София Жлобенко"
+      };
+      const currentBrigade = this.getProjectData.brigades.find(brigade => {
+        return brigade.id === id;
+      });
+      return currentBrigade.employees.push(newEmployee);
     }
   },
+
   computed: {
     getUserData() {
       return this.$store.getters.getUser;
