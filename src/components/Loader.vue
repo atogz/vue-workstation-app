@@ -19,7 +19,9 @@ export default {
 .sk-chase {
   width: 40px;
   height: 40px;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   animation: sk-chase 2.5s infinite linear both;
 }
 
