@@ -16,7 +16,7 @@
 }
 
 .slide-fade-enter-active {
-  transition: opacity 0.8s ease;
+  transition: opacity 0.8s;
 }
 
 .slide-fade-leave-active {

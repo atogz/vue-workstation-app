@@ -2,7 +2,7 @@
   <main>
     <app-header />
     <div class="flex w-full py-5 px-5 items-center">
-      <div class="w-2/5 flex max-w-full border-2 rounded">
+      <div class="w-1/3 flex max-w-full border-2 rounded">
         <div class="w-full flex items-center justify-around">
           <div class="w-1/3">
             <img :src="project.imageLink" alt="" />
@@ -12,63 +12,54 @@
           </div>
         </div>
       </div>
-      <ul class="flex w-3/5 ml-10">
-        <li class="flex-1 mr-2">
-          <a
-            @click="activeScreen = 'tasks'"
-            :class="{
-              'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
-                activeScreen === 'tasks'
-            }"
-            class="text-center block border border-white rounded hover:border-indigo-200 hover:bg-indigo-200 py-2 px-4 text-indigo-600 cursor-pointer"
-            >Задачи</a
-          >
-        </li>
-        <li class="flex-1 mr-2">
-          <a
-            @click="activeScreen = 'materials'"
-            :class="{
-              'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
-                activeScreen === 'materials'
-            }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
-            >Материалы</a
-          >
-        </li>
-        <li class="flex-1 mr-2">
-          <a
-            @click="activeScreen = 'estimate'"
-            :class="{
-              'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
-                activeScreen === 'estimate'
-            }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
-            >Смета</a
-          >
-        </li>
-        <li class="flex-1 mr-2">
-          <a
-            @click="activeScreen = 'brigades'"
-            :class="{
-              'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
-                activeScreen === 'brigades'
-            }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
-            >Бригада</a
-          >
-        </li>
-        <li class="flex-1 mr-2">
-          <a
-            @click="activeScreen = 'notes'"
-            :class="{
-              'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500':
-                activeScreen === 'notes'
-            }"
-            class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
-            >Заметки</a
-          >
-        </li>
-      </ul>
+      <div class="flex w-2/3 justify-end">
+        <ul class="flex w-1/2">
+          <li class="flex-1 mr-2">
+            <a
+              @click="activeScreen = 'tasks'"
+              :class="{
+                'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
+                  activeScreen === 'tasks'
+              }"
+              class="text-center block border border-white rounded hover:border-indigo-200 hover:bg-indigo-200 py-2 px-4 text-indigo-600 cursor-pointer"
+              >Задачи</a
+            >
+          </li>
+          <li class="flex-1 mr-2">
+            <a
+              @click="activeScreen = 'materials'"
+              :class="{
+                'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
+                  activeScreen === 'materials'
+              }"
+              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              >Материалы</a
+            >
+          </li>
+          <li class="flex-1 mr-2">
+            <a
+              @click="activeScreen = 'estimate'"
+              :class="{
+                'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
+                  activeScreen === 'estimate'
+              }"
+              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              >Смета</a
+            >
+          </li>
+          <li class="flex-1 mr-2">
+            <a
+              @click="activeScreen = 'brigades'"
+              :class="{
+                'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold':
+                  activeScreen === 'brigades'
+              }"
+              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              >Бригада</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
     <transition name="slide-fade" mode="out-in">
       <div class="w-full" v-if="activeScreen === 'tasks'">
@@ -490,7 +481,7 @@
             :key="brigade.id"
           >
             <div class="w-full flex justify-between items-baseline">
-              <span class="text-sm text-blue-600 uppercase"
+              <span class="text-sm text-blue-600 uppercase font-semibold"
                 >Бригада {{ brigade.id }}</span
               >
               <button
