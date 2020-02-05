@@ -57,6 +57,40 @@ let projects = [
         count: 12,
         deletable: false
       }
+    ],
+    jobs: [
+      {
+        id: 1,
+        name: "Поклейка виниловых обоев",
+        basePrice: 560,
+        baseMeasure: "м",
+        count: 14,
+        deletable: false
+      },
+      {
+        id: 2,
+        name: "Замена лампочек",
+        basePrice: 30,
+        baseMeasure: "шт",
+        count: 15,
+        deletable: false
+      },
+      {
+        id: 3,
+        name: "Поклейка флюровых обоев",
+        basePrice: 760,
+        baseMeasure: "м",
+        count: 25,
+        deletable: false
+      },
+      {
+        id: 4,
+        name: "Установка плинтуса",
+        basePrice: 40,
+        baseMeasure: "м",
+        count: 45,
+        deletable: false
+      }
     ]
   },
   {
@@ -114,6 +148,40 @@ let projects = [
         count: 12,
         deletable: false
       }
+    ],
+    jobs: [
+      {
+        id: 1,
+        name: "Поклейка виниловых обоев",
+        basePrice: 560,
+        baseMeasure: "м",
+        count: 14,
+        deletable: false
+      },
+      {
+        id: 2,
+        name: "Замена лампочек",
+        basePrice: 30,
+        baseMeasure: "шт",
+        count: 15,
+        deletable: false
+      },
+      {
+        id: 3,
+        name: "Поклейка флюровых обоев",
+        basePrice: 760,
+        baseMeasure: "м",
+        count: 25,
+        deletable: false
+      },
+      {
+        id: 4,
+        name: "Установка плинтуса",
+        basePrice: 40,
+        baseMeasure: "м",
+        count: 45,
+        deletable: false
+      }
     ]
   },
   {
@@ -169,6 +237,40 @@ let projects = [
         basePrice: 120,
         baseMeasure: "м",
         count: 12,
+        deletable: false
+      }
+    ],
+    jobs: [
+      {
+        id: 1,
+        name: "Поклейка виниловых обоев",
+        basePrice: 560,
+        baseMeasure: "м",
+        count: 14,
+        deletable: false
+      },
+      {
+        id: 2,
+        name: "Замена лампочек",
+        basePrice: 30,
+        baseMeasure: "шт",
+        count: 15,
+        deletable: false
+      },
+      {
+        id: 3,
+        name: "Поклейка флюровых обоев",
+        basePrice: 760,
+        baseMeasure: "м",
+        count: 25,
+        deletable: false
+      },
+      {
+        id: 4,
+        name: "Установка плинтуса",
+        basePrice: 40,
+        baseMeasure: "м",
+        count: 45,
         deletable: false
       }
     ]
@@ -262,6 +364,40 @@ let projects = [
         basePrice: 120,
         baseMeasure: "м",
         count: 12,
+        deletable: false
+      }
+    ],
+    jobs: [
+      {
+        id: 1,
+        name: "Поклейка виниловых обоев",
+        basePrice: 560,
+        baseMeasure: "м",
+        count: 14,
+        deletable: false
+      },
+      {
+        id: 2,
+        name: "Замена лампочек",
+        basePrice: 30,
+        baseMeasure: "шт",
+        count: 15,
+        deletable: false
+      },
+      {
+        id: 3,
+        name: "Поклейка флюровых обоев",
+        basePrice: 760,
+        baseMeasure: "м",
+        count: 25,
+        deletable: false
+      },
+      {
+        id: 4,
+        name: "Установка плинтуса",
+        basePrice: 40,
+        baseMeasure: "м",
+        count: 45,
         deletable: false
       }
     ]
