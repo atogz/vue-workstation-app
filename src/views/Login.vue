@@ -71,7 +71,7 @@ export default {
             this.$router.push("/projects");
           });
       } catch (e) {
-        this.$loading(false);
+        //this.$loading(false);
         this.error = e;
       }
     }
