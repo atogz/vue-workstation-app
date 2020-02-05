@@ -25,7 +25,7 @@ interceptorsSetup();
 store.dispatch("APP_LOADED").then(() => {
   guardsSetup();
 
-  //Vue.config.productionTip = false;
+  Vue.config.productionTip = false;
 
   new Vue({
     router,
