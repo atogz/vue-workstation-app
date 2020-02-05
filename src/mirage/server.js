@@ -98,11 +98,11 @@ let projects = [
         employees: [
           {
             id: 1,
-            name: 'Иван Иванов'
+            name: "Иван Иванов"
           },
           {
             id: 2,
-            name: 'Петр Петров'
+            name: "Петр Петров"
           }
         ]
       },
@@ -111,11 +111,11 @@ let projects = [
         employees: [
           {
             id: 3,
-            name: 'Иван Франко'
+            name: "Иван Франко"
           },
           {
             id: 4,
-            name: 'Петр Первый'
+            name: "Петр Первый"
           }
         ]
       },
@@ -124,11 +124,11 @@ let projects = [
         employees: [
           {
             id: 3,
-            name: 'Иван Франко'
+            name: "Иван Франко"
           },
           {
             id: 4,
-            name: 'Петр Первый'
+            name: "Петр Первый"
           }
         ]
       }
@@ -230,11 +230,11 @@ let projects = [
         employees: [
           {
             id: 1,
-            name: 'Иван Иванов'
+            name: "Иван Иванов"
           },
           {
             id: 2,
-            name: 'Петр Петров'
+            name: "Петр Петров"
           }
         ]
       },
@@ -243,11 +243,11 @@ let projects = [
         employees: [
           {
             id: 3,
-            name: 'Иван Франко'
+            name: "Иван Франко"
           },
           {
             id: 4,
-            name: 'Петр Первый'
+            name: "Петр Первый"
           }
         ]
       }
@@ -349,11 +349,11 @@ let projects = [
         employees: [
           {
             id: 1,
-            name: 'Иван Иванов'
+            name: "Иван Иванов"
           },
           {
             id: 2,
-            name: 'Петр Петров'
+            name: "Петр Петров"
           }
         ]
       },
@@ -362,11 +362,11 @@ let projects = [
         employees: [
           {
             id: 3,
-            name: 'Иван Франко'
+            name: "Иван Франко"
           },
           {
             id: 4,
-            name: 'Петр Первый'
+            name: "Петр Первый"
           }
         ]
       }
@@ -504,11 +504,11 @@ let projects = [
         employees: [
           {
             id: 1,
-            name: 'Иван Иванов'
+            name: "Иван Иванов"
           },
           {
             id: 2,
-            name: 'Петр Петров'
+            name: "Петр Петров"
           }
         ]
       },
@@ -517,11 +517,11 @@ let projects = [
         employees: [
           {
             id: 3,
-            name: 'Иван Франко'
+            name: "Иван Франко"
           },
           {
             id: 4,
-            name: 'Петр Первый'
+            name: "Петр Первый"
           }
         ]
       }
