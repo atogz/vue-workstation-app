@@ -21,7 +21,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'tasks'
               }"
-              class="text-center block border border-white rounded hover:border-indigo-200 hover:bg-indigo-200 py-2 px-4 text-indigo-600 cursor-pointer"
+              class="text-center block bg-gray-200 rounded text-gray-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Задачи</a
             >
           </li>
@@ -32,7 +32,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'materials'
               }"
-              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              class="text-center block bg-gray-200 rounded text-gray-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Материалы</a
             >
           </li>
@@ -43,7 +43,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold ':
                   activeScreen === 'estimate'
               }"
-              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              class="text-center block bg-gray-200 rounded text-gray-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Смета</a
             >
           </li>
@@ -54,7 +54,7 @@
                 'bg-indigo-500 text-white hover:bg-indigo-700 border-indigo-500 font-bold':
                   activeScreen === 'brigades'
               }"
-              class="text-center block border border-white rounded hover:border-indigo-200 text-indigo-600 hover:bg-indigo-200 py-2 px-4 cursor-pointer"
+              class="text-center block bg-gray-200 rounded text-gray-600 hover:bg-indigo-300 hover:text-white py-2 px-4 cursor-pointer"
               >Бригада</a
             >
           </li>
@@ -64,8 +64,8 @@
     <transition name="slide-fade" mode="out-in">
       <div class="w-full" v-if="activeScreen === 'tasks'">
         <div class="w-full flex flex-col" v-if="getProjectData.tasks.length">
-          <div class="w-full flex items-center">
-            <div class="w-2/3 flex flex-col py-5 px-5">
+          <div class="w-full flex items-center py-5 px-5">
+            <div class="w-2/3 flex flex-col ">
               <p>
                 Задач:
                 <span class="text-lg ml-1 font-bold">{{
@@ -79,10 +79,10 @@
                 >
               </p>
             </div>
-            <div class="w-1/3">
+            <div class="w-1/3 flex justify-end">
               <button
                 @click="addTask()"
-                class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+                class="py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex hover:bg-green-600 shadow"
               >
                 добавить задачу
               </button>
@@ -114,26 +114,24 @@
                       <i>Дедлайн:</i> <b>{{ task.deadline }}</b>
                     </p>
                   </div>
-                  <div
-                    class="w-4/6 text-sm text-gray-600 px-5 text-justify"
-                  >
+                  <div class="w-4/6 text-sm text-gray-600 px-5 text-justify">
                     <p class="mr-auto">{{ task.description }}</p>
                   </div>
-                  <div class="w-1/6 flex flex-col">
+                  <div class="w-auto flex flex-col">
                     <button
                       v-if="!tasksDeletionPending.includes(task.id)"
                       @click="
                         (task.completed = !task.completed),
                           changeTaskStatus(task.completed)
                       "
-                      class="w-full py-5 px-5 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 "
+                      class="w-full py-5 px-5 border-2 border-gray-500 bg-gray-500 text-white rounded flex items-center justify-center hover:bg-gray-700 shadow"
                     >
                       изменить статус
                     </button>
                     <button
                       v-if="task.deletable || getUserData.role === 'admin'"
                       @click="deleteTask(index)"
-                      class="w-full mt-5 py-5 px-5 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                      class="w-full mt-5 py-5 px-5 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 shadow"
                     >
                       удалить
                     </button>
@@ -145,7 +143,7 @@
                           !tasksDeletionPending.includes(task.id) &&
                           getUserData.role !== 'admin'
                       "
-                      class="w-full mt-5 py-5 px-5 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                      class="w-full mt-5 py-5 px-5 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white shadow"
                     >
                       запросить удаление
                     </button>
@@ -168,7 +166,7 @@
             <p>Задач пока не добавлено</p>
             <button
               @click="addTask()"
-              class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+              class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 shadow"
             >
               добавить задачу
             </button>
@@ -208,7 +206,7 @@
             <div class="w-1/3">
               <button
                 @click="addMaterial()"
-                class="float-right py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+                class="float-right py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 shadow"
               >
                 добавить материал
               </button>
@@ -264,7 +262,7 @@
                           material.deletable || getUserData.role === 'admin'
                         "
                         @click="removeMaterial(index)"
-                        class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                        class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 shadow"
                       >
                         удалить
                       </button>
@@ -275,7 +273,7 @@
                             getUserData.role !== 'admin'
                         "
                         @click="requestMaterialDeletion(material.id)"
-                        class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                        class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white shadow"
                       >
                         запросить удаление
                       </button>
@@ -298,7 +296,7 @@
             <p>Материалов пока не добавлено</p>
             <button
               @click="addMaterial()"
-              class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+              class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 shadow"
             >
               добавить материал
             </button>
@@ -344,13 +342,13 @@
             <div class="w-1/3 flex justify-end">
               <button
                 @click="addJob()"
-                class=" py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+                class=" py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 shadow"
               >
                 добавить работу
               </button>
               <button
                 @click="uploadToGoogle()"
-                class="py-2 ml-5 px-2 border-2 border-orange-400 bg-orange-400 text-white rounded flex items-center justify-center hover:bg-orange-600 "
+                class="py-2 ml-5 px-2 border-2 border-orange-400 bg-orange-400 text-white rounded flex items-center justify-center hover:bg-orange-600 shadow"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -427,7 +425,7 @@
                       <button
                         v-if="job.deletable || getUserData.role === 'admin'"
                         @click="removeJob(index)"
-                        class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 "
+                        class="py-2 px-2 mim-w-32  w-40 border-2 border-red-500 bg-red-500 text-white rounded flex items-center justify-center hover:bg-red-700 shadow"
                       >
                         удалить
                       </button>
@@ -438,7 +436,7 @@
                             getUserData.role !== 'admin'
                         "
                         @click="requestJobDeletion(job.id)"
-                        class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white"
+                        class="py-2 px-2 mim-w-32 max-w-40 w-auto  w-40 border-2 border-red-500 text-red-500 rounded flex items-center justify-center hover:bg-red-500 sm:hover:text-white shadow"
                       >
                         запросить удаление
                       </button>
@@ -461,7 +459,7 @@
             <p>Смета пока не заполнялась</p>
             <button
               @click="addJob()"
-              class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 "
+              class="ml-auto mr-10 py-2 px-2 border-2 border-green-400 bg-green-400 text-white rounded flex items-center justify-center hover:bg-green-600 shadow"
             >
               добавить работу
             </button>
@@ -481,12 +479,12 @@
             :key="brigade.id"
           >
             <div class="w-full flex justify-between items-baseline">
-              <span class="text-sm text-blue-600 uppercase font-semibold"
+              <span class="text-lg text-gray-600 font-semibold"
                 >Бригада {{ brigade.id }}</span
               >
               <button
                 @click="addEmployee(brigade.id)"
-                class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                class="bg-green-400 hover:bg-green-600 text-white font-semibold py-2 px-4 border border-green-400 rounded shadow"
               >
                 добавить сотрудника
               </button>
@@ -505,7 +503,7 @@
                 </span>
                 <button
                   @click="removeEmployee(brigade.id, index)"
-                  class="py-2 ml-auto px-2 border-2 border-red-400 bg-red-400 text-white rounded flex items-center justify-center hover:bg-red-600 "
+                  class="py-2 ml-auto px-2 border-2 border-red-400 bg-red-400 text-white rounded flex items-center justify-center hover:bg-red-600 shadow"
                 >
                   удалить
                 </button>
@@ -587,7 +585,6 @@ export default {
       }
     },
     changeTaskStatus(status) {
-      console.log("status ", status);
       if (status) {
         this.project.completedTasks++;
       } else {
