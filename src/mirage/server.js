@@ -638,7 +638,6 @@ server.get("/api/project", (schema, request) => {
     const projectData = projectId => {
       return projects.find(item => item.id === projectId);
     };
-    console.log("project data ", projectData(id));
     return {
       success: true,
       data: projectData(id)
